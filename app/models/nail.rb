@@ -1,0 +1,2 @@
+class Nail < ApplicationRecord
+end
