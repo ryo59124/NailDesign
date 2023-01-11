@@ -1,16 +1,101 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    get 'nails/index'
+    get 'nails/show'
+    get 'nails/destroy'
+  end
+  namespace :admin do
+    get 'end_users/index'
+    get 'end_users/show'
+    get 'end_users/edit'
+    get 'end_users/destroy'
+  end
+  namespace :admin do
+    get 'comments/destroy'
+  end
+  namespace :admin do
+    get 'homes/top'
+  end
+  namespace :public do
+    get 'chats/create'
+    get 'chats/show'
+  end
+  namespace :public do
+    get 'favorites/create'
+    get 'favorites/destroy'
+  end
+  namespace :public do
+    get 'comments/create'
+    get 'comments/destroy'
+  end
+  namespace :public do
+    get 'end_users/show'
+    get 'end_users/edit'
+    get 'end_users/update'
+    get 'end_users/unsubcribe'
+    get 'end_users/withdraw'
+  end
+  namespace :public do
+    get 'nails/index'
+    get 'nails/show'
+    get 'nails/edit'
+    get 'nails/create'
+    get 'nails/destroy'
+    get 'nails/update'
+  end
+  namespace :public do
+    get 'homes/top'
+  end
 # 顧客用
-# URL /customers/sign_in ...
 devise_for :end_users,skip: [:passwords], controllers: {
   registrations: "public/registrations",
   sessions: 'public/sessions'
 }
 
+# scope module URLを変えない/ファイル構成だけ指定のパスにする
+scope module: :public do
+  root to: "homes#top"
+  get 'relationships/followings'
+  get 'relationships/followers'
+  get "search" => "searches#search"
+  
+  resources :nails, only: [:index,:show,:edit,:create,:destroy,:update] do
+    resource :favorites, only: [:create, :destroy]
+    resources :comments, only: [:create, :destroy]
+  end
+  
+  get 'chat/:id', to: 'chats#show', as: 'chat'
+  resources :chats, only: [:create]
+#chatの一覧は出せない？
+
+  resource :end_users, only: [:edit, :update]
+  get "/end_users/my_page" => "end_users#show"
+  get "/end_users" => "end_users#show"
+  get "/end_users/information/edit" => "end_users#edit"
+  patch "end_users/information" => "end_users#update"
+  get "/end_users/unsubscribe" => "end_users#unsubscribe"
+  patch "/end_user/withdraw" => "end_users#withdraw"
+
+end
+
+ devise_scope :user do
+    post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
+ end
+  
 # 管理者用
-# URL /admin/sign_in ...
 devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   sessions: "admin/sessions"
 }
+
+namespace :admin do
+  get '/' => "homes#top"
+  resources :end_users, only: [:index, :show, :edit, :destroy]
+  #退会表記に変える？削除？
+  resources :nails, only: [:index, :show, :destroy] do
+    resources :comments, only: [:destroy]
+  end
+end
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
