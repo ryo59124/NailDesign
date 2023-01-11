@@ -1,52 +1,5 @@
 Rails.application.routes.draw do
 
-  namespace :admin do
-    get 'nails/index'
-    get 'nails/show'
-    get 'nails/destroy'
-  end
-  namespace :admin do
-    get 'end_users/index'
-    get 'end_users/show'
-    get 'end_users/edit'
-    get 'end_users/destroy'
-  end
-  namespace :admin do
-    get 'comments/destroy'
-  end
-  namespace :admin do
-    get 'homes/top'
-  end
-  namespace :public do
-    get 'chats/create'
-    get 'chats/show'
-  end
-  namespace :public do
-    get 'favorites/create'
-    get 'favorites/destroy'
-  end
-  namespace :public do
-    get 'comments/create'
-    get 'comments/destroy'
-  end
-  namespace :public do
-    get 'end_users/show'
-    get 'end_users/edit'
-    get 'end_users/update'
-    get 'end_users/unsubcribe'
-    get 'end_users/withdraw'
-  end
-  namespace :public do
-    get 'nails/index'
-    get 'nails/show'
-    get 'nails/edit'
-    get 'nails/create'
-    get 'nails/destroy'
-    get 'nails/update'
-  end
-  namespace :public do
-    get 'homes/top'
-  end
 # 顧客用
 devise_for :end_users,skip: [:passwords], controllers: {
   registrations: "public/registrations",
