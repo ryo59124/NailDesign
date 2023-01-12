@@ -8,4 +8,17 @@
   <% if @nail.end_user == current_end_user %>
     <%= link_to "Delete", nail_path(@nail), method: :delete %>
   <% end %>
+  <% if @nail.favorited_by?(current_end_user) %>
+    <p>
+      <%= link_to nail_favorites_path(@nail), method: :delete do %>
+        ♥<%= @nail.favorites.count %>
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to nail_favorites_path(@nail), method: :post do %>
+        ♡<%= @nail.favorites.count %>
+      <% end %>
+    </p>
+  <% end %>
 </div>

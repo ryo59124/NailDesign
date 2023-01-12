@@ -24,10 +24,14 @@ class Nail < ApplicationRecord
     elsif search == "backward_match"
       @nail = Book.where("body LIKE?","%#{word}")
     elsif search == "partial_match"
-      @nail = Book.where("bo LIKE?","%#{word}%")
+      @nail = Book.where("body LIKE?","%#{word}%")
     else
       @book = Book.all
     end
+  end
+  
+  def favorited_by?(end_user)
+    favorites.exists?(end_user_id: end_user.id)
   end
   
 end
