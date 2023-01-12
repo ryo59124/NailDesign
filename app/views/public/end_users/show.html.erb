@@ -1,2 +1,20 @@
-<h1>Public::EndUsers#show</h1>
-<p>Find me in app/views/public/end_users/show.html.erb</p>
+<div>
+  <h3><%= @end_user.name %></h3>
+  <%= image_tag @end_user.get_profile_image, size:"50x50" %>
+  <%= @end_user.introduction %>
+  <% if @end_user == current_end_user %>
+    <p><%= link_to "プロフィール編集", edit_end_user_path(@end_user) %></p>
+  <% end %>
+</div>
+
+<!-- ユーザーの投稿一覧 -->
+
+<% @nails.each do |nail| %>
+<div>
+  <%= link_to nail_path(nail.id) do %>
+    <%= image_tag nail.get_image %>
+  <% end %>
+  <p><%= nail.title %></p>
+  <p>説明：<%= nail.body %></p>
+</div>
+<% end %>

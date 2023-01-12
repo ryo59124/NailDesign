@@ -1,2 +1,11 @@
-<h1>Public::Nails#index</h1>
-<p>Find me in app/views/public/nails/index.html.erb</p>
+<% @nails.each do |nail| %>
+<div>
+  <%= link_to nail_path(nail.id) do %>
+    <%= image_tag nail.get_image %>
+  <% end %>
+  <p><%= image_tag nail.end_user.get_profile_image, size:"50x50" %></p>
+  <p><%= nail.title %></p>
+  <p>説明：<%= nail.body %></p>
+  <p>ユーザー：<%= nail.end_user.name %></p>
+</div>
+<% end %>

@@ -13,7 +13,7 @@ scope module: :public do
   get 'relationships/followers'
   get "search" => "searches#search"
   
-  resources :nails, only: [:index,:show,:edit,:create,:destroy,:update] do
+  resources :nails, only: [:index, :new, :show, :edit, :create, :destroy, :update] do
     resource :favorites, only: [:create, :destroy]
     resources :comments, only: [:create, :destroy]
   end
@@ -22,11 +22,11 @@ scope module: :public do
   resources :chats, only: [:create]
 #chatの一覧は出せない？
 
-  resource :end_users, only: [:edit, :update]
-  get "/end_users/my_page" => "end_users#show"
-  get "/end_users" => "end_users#show"
-  get "/end_users/information/edit" => "end_users#edit"
-  patch "end_users/information" => "end_users#update"
+  resources :end_users, only: [:index, :show, :edit, :update]
+  #get "/end_users/my_page" => "end_users#show"
+  #get "/end_users" => "end_users#show"
+  #get "/end_users/information/edit" => "end_users#edit"
+  #patch "end_users/information" => "end_users#update"
   get "/end_users/unsubscribe" => "end_users#unsubscribe"
   patch "/end_user/withdraw" => "end_users#withdraw"
 

@@ -1,2 +1,11 @@
-<h1>Public::Nails#show</h1>
-<p>Find me in app/views/public/nails/show.html.erb</p>
+<div>
+  <%= image_tag @nail.get_image %>
+  <p><%= @nail.title %></p>
+  <p>説明：<%= @nail.body %></p>
+  <p>投稿ユーザー画像：<%= image_tag @nail.user.get_profile_image, size:"50x50" %></p>
+  <p>User：<%= @nail.end_user.name %></p>
+  <p>投稿日：<%= @nail.created_at.strftime('%Y/%m/%d') %></p>
+  <% if @nail.end_user == current_end_user %>
+    <%= link_to "Delete", nail_path(@nail), method: :delete %>
+  <% end %>
+</div>
