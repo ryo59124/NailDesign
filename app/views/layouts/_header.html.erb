@@ -22,10 +22,14 @@
                 <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link text-light' %>
               </li>
               <li class="nav-link">
-                <%#= form_with url: items_path, method: :get, local: true do |f| %>
-                  <%#= f.text_field :content, placeholder: '🍰🍰🍰  search  🍰🍰🍰' %>
-                  <%#= f.submit '🔎'%>
-                <%# end %>
+                <div class="search_form">
+                  <%= form_with url: search_path, local: true, method: :get do |f| %>
+                    <%= f.text_field :word %>
+                    <%= f.select :range, options_for_select([['Nail'], ['User']]) %>
+                    <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
+                    <%= f.submit "検索", class: "btn btn-primary" %>
+                  <% end %>
+                </div>
               </li>
 
             <!--customersログイン時のヘッダー-->
@@ -49,10 +53,14 @@
                 <%= link_to "Log out", destroy_end_user_session_path, method: :delete, class: 'nav-link text-light' %>
               </li>
               <li class="nav-link">
-                <%#= form_with url: items_path, method: :get, local: true do |f| %>
-                  <%#= f.text_field :content, placeholder: '🍰🍰🍰  search  🍰🍰🍰' %>
-                  <%#= f.submit '🔎'%>
-                <%# end %>
+                <div class="search_form">
+                  <%= form_with url: search_path, local: true, method: :get do |f| %>
+                    <%= f.text_field :word %>
+                    <%= f.select :range, options_for_select([['Nail'], ['User']]) %>
+                    <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
+                    <%= f.submit "検索", class: "btn btn-primary" %>
+                  <% end %>
+                </div>
               </li>
             <% else %>
             <!--ログイン前時のヘッダー-->
@@ -69,10 +77,14 @@
                 <%= link_to "Log in", new_end_user_session_path, class: 'nav-link text-light' %>
               </li>
               <li class="nav-link">
-                <%#= form_with url: items_path, method: :get, local: true do |f| %>
-                  <%#= f.text_field :content, placeholder: '🍰🍰🍰  search  🍰🍰🍰' %>
-                  <%#= f.submit '🔎'%>
-                <%# end %>
+                <div class="search_form">
+                  <%= form_with url: search_path, local: true, method: :get do |f| %>
+                    <%= f.text_field :word %>
+                    <%= f.select :range, options_for_select([['Nail'], ['User']]) %>
+                    <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
+                    <%= f.submit "検索", class: "btn btn-primary" %>
+                  <% end %>
+                </div>
               </li>
             <% end %>
             </ul>

@@ -48,6 +48,7 @@ namespace :admin do
   resources :nails, only: [:index, :show, :destroy] do
     resources :comments, only: [:destroy]
   end
+  get "search" => "searches#search"
 end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

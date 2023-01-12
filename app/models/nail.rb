@@ -16,4 +16,18 @@ class Nail < ApplicationRecord
       image
   end
   
+  def self.looks(search, word)
+    if search == "perfect_match"
+      @nail = Nail.where("body LIKE?","#{word}")
+    elsif search == "forward_match"
+      @nail = Book.where("body LIKE?","#{word}%")
+    elsif search == "backward_match"
+      @nail = Book.where("body LIKE?","%#{word}")
+    elsif search == "partial_match"
+      @nail = Book.where("bo LIKE?","%#{word}%")
+    else
+      @book = Book.all
+    end
+  end
+  
 end

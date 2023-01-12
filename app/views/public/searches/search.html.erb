@@ -1,0 +1,32 @@
+<h2>検索結果</h2>
+
+<table class="table table-hover table-inverse">
+  <!--検索対象モデルがUserの時 -->
+  <% if @range == "User" %>
+    <tbody>
+      <% @end_users.each do |end_user| %>
+        <tr>
+          <td>
+            <%= link_to end_user_path(end_user.id) do %>
+              <%= end_user.name %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% else %>
+  <!--検索対象モデルがUserではない時 -->
+    <tbody>
+      <% @nails.each do |nail| %>
+        <tr>
+          <td>
+            <%= link_to nail_path(nail.id) do %>
+              <%= image_tag nail.get_image %>
+            <% end %>
+          </td>
+          <td><%= nail.title %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% end %>
+</table>
