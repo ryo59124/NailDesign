@@ -16,5 +16,6 @@
   <% end %>
   <p><%= nail.title %></p>
   <p>説明：<%= nail.body %></p>
+  <p><%= link_to "#{nail.comments.count} コメント", nail_path(nail.id) %></p>
 </div>
 <% end %>

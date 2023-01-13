@@ -23,5 +23,6 @@
       <% end %>
     </p>
   <% end %>
+  <p><%= link_to "#{nail.comments.count} コメント", nail_path(nail.id) %></p>
 </div>
 <% end %>
