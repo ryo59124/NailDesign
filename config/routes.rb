@@ -22,13 +22,18 @@ scope module: :public do
   resources :chats, only: [:create]
 #chatの一覧は出せない？
 
-  resources :end_users, only: [:index, :show, :edit, :update]
+  resources :end_users, only: [:index, :show, :edit, :update] do 
+    member do
+      get :favorites
+    end
+  end
   #get "/end_users/my_page" => "end_users#show"
   #get "/end_users" => "end_users#show"
   #get "/end_users/information/edit" => "end_users#edit"
   #patch "end_users/information" => "end_users#update"
   get "/end_users/unsubscribe" => "end_users#unsubscribe"
   patch "/end_user/withdraw" => "end_users#withdraw"
+ 
 
 end
 

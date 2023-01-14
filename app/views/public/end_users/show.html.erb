@@ -5,6 +5,7 @@
   <% if @end_user == current_end_user %>
     <p><%= link_to "プロフィール編集", edit_end_user_path(@end_user) %></p>
   <% end %>
+  <%= link_to "いいねした投稿", favorites_end_user_path(@end_user) %>
 </div>
 
 <!-- ユーザーの投稿一覧 -->
