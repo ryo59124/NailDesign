@@ -10,7 +10,9 @@
     <% if current_end_user.following?(@end_user) %>
       <%= link_to "フォロー外す", end_user_relationships_path(@end_user.id), method: :delete, class: 'btn btn-info' %>
       <% if current_end_user != @end_user %>
-        <%= link_to 'chatを始める', chat_path(@end_user.id)%>
+        <%= link_to chat_path(end_user.id) do %>
+          <i class="fas fa-comments"></i> CHAT
+        <% end %>
       <% end %>
     <% else %>
       <%= link_to "フォローする", end_user_relationships_path(@end_user.id), method: :post, class: 'btn btn-success' %>
@@ -48,7 +50,9 @@
     <%= comment.end_user.name %>
     <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
     <% if comment.end_user == current_end_user %>
-      <%= link_to "削除", nail_comment_path(comment.nail, comment), method: :delete %>
+      <%= link_to nail_comment_path(comment.nail, comment), method: :delete do %>
+        <i class="fas fa-trash-alt"></i>
+      <% end %>
     <% end %>
   <% end %>
   

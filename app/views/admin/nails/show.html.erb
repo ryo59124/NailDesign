@@ -1,2 +1,19 @@
-<h1>Admin::Nails#show</h1>
-<p>Find me in app/views/admin/nails/show.html.erb</p>
+<div>
+  <%= image_tag @nail.get_image, size:"400x400" %>
+  <p><%= @nail.title %></p>
+  <p>説明：<%= @nail.body %></p>
+  <p>投稿ユーザー画像：<%= image_tag @nail.end_user.get_profile_image, size:"50x50" %></p>
+  <p>User：<%= @nail.end_user.name %></p>
+  <p>投稿日：<%= @nail.created_at.strftime('%Y/%m/%d') %></p>
+  <p>♥<%= @nail.favorites.count %></p>
+  <p>コメント件数：<%= @nail.comments.count %></p>
+  <%= link_to "投稿削除", admin_nail_path(@nail), method: :delete %>
+</div>
+<div>
+  <% @nail.comments.each do |comment| %>
+    <p><%= image_tag comment.end_user.get_profile_image, size:"50x50" %></p>
+    <%= comment.end_user.name %>
+    <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
+    <%= link_to "コメントを削除", admin_nail_comment_path(comment.nail, comment), method: :delete %>
+  <% end %>
+</div>

@@ -28,11 +28,19 @@
             <th></th>
             <th>
               <%= link_to "編集する", edit_admin_end_user_path(@end_user.id), class: 'btn btn-success' %>
-              <%= link_to "投稿一覧を見る", admin_nails_path(@end_user.id), class: 'btn btn-info' %>
             </th>
           </tr>
         </tbody>
       </table>
     </div>
+    
+    <% @nails.each do |nail| %>
+    <div>
+      <%= link_to admin_nail_path(nail.id) do %>
+        <%= image_tag nail.get_image, size: '200x200' %>
+      <% end %>
+      <p><%= nail.title %></p>
+    </div>
+    <% end %>
   </div>
 </div>

@@ -20,7 +20,9 @@
           <% if current_end_user.following?(end_user) %>
             <%= link_to "フォロー外す", end_user_relationships_path(end_user.id), method: :delete %>
             <% if current_end_user != end_user %>
-              <%= link_to 'chatを始める', chat_path(end_user.id)%>
+              <%= link_to chat_path(end_user.id) do %>
+                <i class="fas fa-comments"></i> CHAT
+              <% end %>
             <% end %>
           <% else %>
             <%= link_to "フォローする", end_user_relationships_path(end_user.id), method: :post %>

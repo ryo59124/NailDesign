@@ -16,6 +16,9 @@
     <th>followers</th>
     <th><%= link_to @end_user.followers.count, end_user_followers_path(@end_user) %></th>
   </tr>
+  <tr>
+    <%= link_to "いいねした投稿", end_user_favorites_path(@end_user) %>
+  </tr>
 </table>
 <% if current_end_user.name != "Guest" %>
   <% if @end_user != current_end_user %>
@@ -32,7 +35,7 @@
   <% end %><br>
 
   <div class='row'>
-  <% if @end_user.name != "Guest" %>
+  <% if @end_user == current_end_user %>
     <%= link_to edit_end_user_path(@end_user), class: "btn btn-outline-secondary btn-block" do %>
       <i class="fas fa-user-cog"></i>
     <% end %>

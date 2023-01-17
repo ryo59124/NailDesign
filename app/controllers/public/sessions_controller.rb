@@ -7,7 +7,7 @@ before_action :end_user_state, only: [:create]
    protected
 
     def after_sign_in_path_for(resource)
-      root_path
+      nails_path
     end
 
     def after_sign_out_path_for(resource)

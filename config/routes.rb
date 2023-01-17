@@ -22,9 +22,10 @@ scope module: :public do
 #chatの一覧は出せない？
 
   resources :end_users, only: [:index, :show, :edit, :update] do
-    member do
-      get :favorites
-    end
+    resources :favorites, only: [:index]
+   # member do
+    #  get :favorites
+  #  end
     resource :relationships, only: [:create, :destroy]
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'
@@ -46,8 +47,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
 
 namespace :admin do
   get '/' => "homes#top"
-  resources :end_users, only: [:index, :show, :edit, :destroy]
-  #退会表記に変える？削除？
+  resources :end_users, only: [:index, :show, :edit, :update]
   resources :nails, only: [:index, :show, :destroy] do
     resources :comments, only: [:destroy]
   end

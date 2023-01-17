@@ -12,4 +12,11 @@ class Public::FavoritesController < ApplicationController
     favorite.destroy
     redirect_to nail_path(nail)
   end
+
+  def index
+    @end_user = EndUser.find(params[:end_user_id])
+    favorites = Favorite.where(end_user_id: @end_user.id).pluck(:nail_id)
+    @favorite_nails = Nail.find(favorites)
+  end
+
 end

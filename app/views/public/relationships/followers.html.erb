@@ -17,7 +17,9 @@
         <td>フォロワー数: <%= end_user.followers.count %></td>
         <td>
           <% if current_end_user != end_user %>
-            %= link_to 'chatを始める', chat_path(end_user.id)%>
+            <%= link_to chat_path(end_user.id) do %>
+              <i class="fas fa-comments"></i> CHAT
+            <% end %>
           <% end %>
         </td>
       </tr>

@@ -1,0 +1,12 @@
+<h3>お気に入り投稿</h3>
+<% @favorite_nails.each do |nail| %>
+<div>
+  <%= link_to nail_path(nail.id) do %>
+    <%= image_tag nail.get_image, size:"300x300" %>
+  <% end %>
+  <p><%= nail.title %></p>
+  <p><%= nail.end_user.name %></p>
+    ♥<%= nail.favorites.count %>
+</div>
+<% end %>
+
