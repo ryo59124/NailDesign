@@ -8,7 +8,7 @@ class Public::CommentsController < ApplicationController
   end
   
   def destroy
-    Nail.find(params[:id]).destroy
+    Comment.find(params[:id]).destroy
     redirect_to nail_path(params[:nail_id])
   end
 

@@ -9,23 +9,25 @@ devise_for :end_users,skip: [:passwords], controllers: {
 # scope module URLを変えない/ファイル構成だけ指定のパスにする
 scope module: :public do
   root to: "homes#top"
-  get 'relationships/followings'
-  get 'relationships/followers'
+  post '/guests/guest_sign_in', to: 'guests#new_guest'
   get "search" => "searches#search"
-  
+
   resources :nails, only: [:index, :new, :show, :edit, :create, :destroy, :update] do
     resource :favorites, only: [:create, :destroy]
     resources :comments, only: [:create, :destroy]
   end
-  
+
   get 'chat/:id', to: 'chats#show', as: 'chat'
   resources :chats, only: [:create]
 #chatの一覧は出せない？
 
-  resources :end_users, only: [:index, :show, :edit, :update] do 
+  resources :end_users, only: [:index, :show, :edit, :update] do
     member do
       get :favorites
     end
+    resource :relationships, only: [:create, :destroy]
+    get 'followings' => 'relationships#followings', as: 'followings'
+    get 'followers' => 'relationships#followers', as: 'followers'
   end
   #get "/end_users/my_page" => "end_users#show"
   #get "/end_users" => "end_users#show"
@@ -33,14 +35,10 @@ scope module: :public do
   #patch "end_users/information" => "end_users#update"
   get "/end_users/unsubscribe" => "end_users#unsubscribe"
   patch "/end_user/withdraw" => "end_users#withdraw"
- 
+
 
 end
 
- devise_scope :user do
-    post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
- end
-  
 # 管理者用
 devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   sessions: "admin/sessions"

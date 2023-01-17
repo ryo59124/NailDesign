@@ -26,6 +26,7 @@ before_action :end_user_state, only: [:create]
       end
     end
   end
+  
   # GET /resource/sign_in
   # def new
   #   super

@@ -1,28 +1,31 @@
 <% @nails.each do |nail| %>
 <div>
   <%= link_to nail_path(nail.id) do %>
-    <%= image_tag nail.get_image %>
+    <%= image_tag nail.get_image, size:"300x300" %>
   <% end %>
   <p><%= image_tag nail.end_user.get_profile_image, size:"50x50" %></p>
   <p><%= nail.title %></p>
-  <p>説明：<%= nail.body %></p>
-  <p>ユーザー：<%= nail.end_user.name %></p>
+  <p><%= nail.end_user.name %></p>
   <% if nail.end_user == current_end_user %>
     <%= link_to "Delete", nail_path(nail), method: :delete %>
   <% end %>
-  <% if nail.favorited_by?(current_end_user) %>
-    <p>
-      <%= link_to nail_favorites_path(nail), method: :delete do %>
-        ♥<%= nail.favorites.count %>
-      <% end %>
-    </p>
-    <% else %>
-    <p>
-      <%= link_to nail_favorites_path(nail), method: :post do %>
-        ♡<%= nail.favorites.count %>
-      <% end %>
-    </p>
+  <% if current_end_user.name != "Guest" %>
+    <% if nail.favorited_by?(current_end_user) %>
+      <p>
+        <%= link_to nail_favorites_path(nail), method: :delete do %>
+          ♥<%= nail.favorites.count %>
+        <% end %>
+      </p>
+      <% else %>
+      <p>
+        <%= link_to nail_favorites_path(nail), method: :post do %>
+          ♡<%= nail.favorites.count %>
+        <% end %>
+      </p>
+    <% end %>
+  <% else %>
+    ♥<%= nail.favorites.count %>
   <% end %>
-  <p><%= link_to "#{nail.comments.count} コメント", nail_path(nail.id) %></p>
+  <p><%= nail.comments.count %>件のコメント</p>
 </div>
 <% end %>

@@ -1,0 +1,29 @@
+<h1>follow Users</h1>
+<% if @end_users.exists? %>
+<table class='table'>
+  <thead>
+    <tr>
+      <th>image</th>
+      <th>name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @end_users.each do |end_user| %>
+      <tr>
+        <td><%= image_tag end_user.get_profile_image, size: '50x50' %></td>
+        <td><%= link_to end_user.name, end_user %></td>
+        <td>フォロー数: <%= end_user.followings.count %></td>
+        <td>フォロワー数: <%= end_user.followers.count %></td>
+        <td>
+          <% if current_end_user != end_user %>
+            <%= link_to 'chatを始める', chat_path(end_user.id)%>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% else %>
+  <p>ユーザーはいません</p>
+<% end %>

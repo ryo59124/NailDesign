@@ -20,6 +20,7 @@ class Public::NailsController < ApplicationController
   def show
     @nail = Nail.find(params[:id])
     @comment = Comment.new
+    @end_user = @nail.end_user
   end
 
   def edit

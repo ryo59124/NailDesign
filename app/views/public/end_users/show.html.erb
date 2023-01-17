@@ -1,22 +1,52 @@
-<div>
-  <h3><%= @end_user.name %></h3>
-  <%= image_tag @end_user.get_profile_image, size:"50x50" %>
-  <%= @end_user.introduction %>
-  <% if @end_user == current_end_user %>
-    <p><%= link_to "プロフィール編集", edit_end_user_path(@end_user) %></p>
+
+<table class='table'>
+  <tr><%= image_tag @end_user.get_profile_image, size: '80x80' %></tr>
+  <tr>
+	  <th>name</th>
+	  <th><%= @end_user.name %></th>
+  </tr>
+  <tr>
+	  <th>introduction</th>
+	  <th><%= @end_user.introduction %></th>
+  </tr>
+  <tr>
+    <th>follows</th>
+    <th><%= link_to @end_user.followings.count, end_user_followings_path(@end_user) %></th>
+  </tr>
+    <th>followers</th>
+    <th><%= link_to @end_user.followers.count, end_user_followers_path(@end_user) %></th>
+  </tr>
+</table>
+<% if current_end_user.name != "Guest" %>
+  <% if @end_user != current_end_user %>
+  <div>
+    <% if current_end_user.following?(@end_user) %>
+      <%= link_to "フォロー外す", end_user_relationships_path(@end_user.id), method: :delete, class: 'btn btn-info' %>
+      <% if current_end_user != @end_user %>
+        <%= link_to 'chatを始める', chat_path(@end_user.id)%>
+      <% end %>
+    <% else %>
+      <%= link_to "フォローする", end_user_relationships_path(@end_user.id), method: :post, class: 'btn btn-success' %>
+    <% end %>
+  </div>
+  <% end %><br>
+
+  <div class='row'>
+  <% if @end_user.name != "Guest" %>
+    <%= link_to edit_end_user_path(@end_user), class: "btn btn-outline-secondary btn-block" do %>
+      <i class="fas fa-user-cog"></i>
+    <% end %>
   <% end %>
-  <%= link_to "いいねした投稿", favorites_end_user_path(@end_user) %>
-</div>
+  </div>
+<% end %>
 
 <!-- ユーザーの投稿一覧 -->
 
 <% @nails.each do |nail| %>
 <div>
   <%= link_to nail_path(nail.id) do %>
-    <%= image_tag nail.get_image %>
+    <%= image_tag nail.get_image, size: '200x200' %>
   <% end %>
   <p><%= nail.title %></p>
-  <p>説明：<%= nail.body %></p>
-  <p><%= link_to "#{nail.comments.count} コメント", nail_path(nail.id) %></p>
 </div>
 <% end %>

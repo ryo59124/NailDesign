@@ -1,0 +1,35 @@
+<table class='table'>
+  <thead>
+    <tr>
+      <th>image</th>
+      <th>name</th>
+      <th colspan="5"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @end_users.each do |end_user| %>
+    <% if end_user.name != "Guest" && end_user.name != "guestuser" %>
+      <tr>
+        <td><%= image_tag end_user.get_profile_image, size: '50x50' %></td>
+        <td><%= link_to end_user.name, end_user %></td>
+        <td>フォロー数: <%= end_user.followings.count %></td>
+        <td>フォロワー数: <%= end_user.followers.count %></td>
+        <td>
+        <% if end_user != current_end_user %>
+        <% if current_end_user.name != "Guest" %>
+          <% if current_end_user.following?(end_user) %>
+            <%= link_to "フォロー外す", end_user_relationships_path(end_user.id), method: :delete %>
+            <% if current_end_user != end_user %>
+              <%= link_to 'chatを始める', chat_path(end_user.id)%>
+            <% end %>
+          <% else %>
+            <%= link_to "フォローする", end_user_relationships_path(end_user.id), method: :post %>
+          <% end %>
+        <% end %>
+        <% end %>
+        </td>
+      </tr>
+    <% end %>
+    <% end %>
+  </tbody>
+</table>
