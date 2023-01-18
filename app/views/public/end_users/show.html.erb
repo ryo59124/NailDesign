@@ -1,6 +1,6 @@
 <div class='container px-5 px-sm-0 mt-3'>
   <div class='row'>
-    <div class='col-md-3'>
+    <div class='col-lg-3'>
       <%= image_tag @end_user.get_profile_image, size: '80x80', class: "rounded-circle" %></br>
       <table class='table'>
         <tr>
@@ -26,12 +26,18 @@
       <% if @end_user != current_end_user %>
       <div>
         <% if current_end_user.following?(@end_user) %>
-          <%= link_to "フォロー外す", end_user_relationships_path(@end_user.id), method: :delete, class: 'btn btn-info' %>
+          <%= link_to end_user_relationships_path(@end_user.id), method: :delete, class: 'text-reset' do %>
+              <i class="fas fa-user-minus"></i>
+          <% end %>
         <% else %>
-          <%= link_to "フォローする", end_user_relationships_path(@end_user.id), method: :post, class: 'btn btn-success' %>
+          <%= link_to end_user_relationships_path(@end_user.id), method: :post, class: 'text-success' do %>
+              <i class="fas fa-user-plus"></i>
+            <% end %>
         <% end %>
         
-        <%= link_to 'chatを始める', chat_path(@end_user.id)%>
+        <%= link_to chat_path(@end_user.id), class: "text-reset" do %>
+            <i class="fas fa-comments"></i> CHAT
+          <% end %>
       </div>
       <% end %>
       <br>
@@ -49,9 +55,9 @@
     <div class="col-9">
       <div class="row">
         <% @nails.each do |nail| %>
-        <div class='col-3 offset-md-1'>
+        <div class='col-md-3 offset-md-1 mt-2'>
           <%= link_to nail_path(nail.id) do %>
-            <%= image_tag nail.get_image, size:"200x200" %>
+            <%= image_tag nail.get_image, size:"250x250" %>
           <% end %>
           <p><%= nail.title %></p>
         </div>

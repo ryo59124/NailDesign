@@ -1,18 +1,20 @@
 <header class="text-monospace"  style="background-color:#E79D9D;">
-  <nav class="navbar navbar-expand-lg" >
-    <div class="container">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container mt-2">
       <div>
       <%= link_to root_path do %>
-        <%= image_tag 'Nail.logo.png', size: "80x80" %>
+        <%= image_tag 'Nail.logo.png', size: "150x150" %>
       <% end %>
       </div>
       <div>
       <% if end_user_signed_in? %>
         <% if current_end_user.name != "Guest" %>
-          ようこそ！ <%= link_to end_user_path(current_end_user), class: "font-weight-bold text-reset" do %>
-            <% current_end_user.name %>
-          <% end %>
-          さん
+          <h4>
+            <%= link_to end_user_path(current_end_user), class: "font-weight-bold text-reset" do %>
+              <% current_end_user.name %>
+            <% end %>
+            さんのページ
+          </h4>
         <% else %>
           ようこそ！ ゲストさん
         <% end %>
@@ -40,18 +42,18 @@
             <!--end_usersログイン時のヘッダー-->
             <% elsif end_user_signed_in? %>
               <li>
-                <%= link_to "Users", end_users_path, class: 'nav-link border-bottom', style:"color:#2f4f4f;" %>
-              </li>
-              <li>
                 <% if current_end_user.name != "Guest" %>
-                  <%= link_to "New Post", new_nail_path, class: 'nav-link border-bottom', style:"color:#2f4f4f;" %>
+                  <%= link_to "New Post　", new_nail_path, class: 'nav-link border-bottom', style:"color:#800000;" %>
                 <% end %>
               </li>
               <li>
-                <%= link_to "Nails", nails_path, class: 'nav-link border-bottom', style:"color:#2f4f4f;" %>
+                <%= link_to "Nails", nails_path, class: 'nav-link border-bottom', style:"color:#7b6ebb;" %>
               </li>
               <li>
-                <%= link_to "Log out", destroy_end_user_session_path, method: :delete, class: 'nav-link border-bottom', style:"color:#2f4f4f;" %>
+                <%= link_to "Users　", end_users_path, class: 'nav-link border-bottom', style:"color:#8b008b;" %>
+              </li>
+              <li>
+                <%= link_to "Log out", destroy_end_user_session_path, method: :delete, class: 'nav-link border-bottom', style:"color:#cd5c5c;" %>
               </li>
               
             <% else %>
