@@ -1,25 +1,26 @@
-
-<table class='table'>
-  <tr><%= image_tag @end_user.get_profile_image, size: '80x80' %></tr>
-  <tr>
-	  <th>name</th>
-	  <th><%= @end_user.name %></th>
-  </tr>
-  <tr>
-	  <th>introduction</th>
-	  <th><%= @end_user.introduction %></th>
-  </tr>
-  <tr>
-    <th>follows</th>
-    <th><%= link_to @end_user.followings.count, end_user_followings_path(@end_user) %></th>
-  </tr>
-    <th>followers</th>
-    <th><%= link_to @end_user.followers.count, end_user_followers_path(@end_user) %></th>
-  </tr>
-  <tr>
-    <%= link_to "いいねした投稿", end_user_favorites_path(@end_user) %>
-  </tr>
-</table>
+<div class='container px-5 px-sm-0 mt-3'>
+  <div class='row'>
+    <div class='col-md-3'>
+      <%= image_tag @end_user.get_profile_image, size: '80x80', class: "rounded-circle" %></br>
+      <table class='table'>
+        <tr>
+	        <th>name</th>
+	        <th><%= @end_user.name %></th>
+        </tr>
+        <tr>
+	        <th>introduction</th>
+	        <th><%= @end_user.introduction %></th>
+        </tr>
+        <tr>
+          <th>follows</th>
+          <th><%= link_to @end_user.followings.count, end_user_followings_path(@end_user) %></th>
+        </tr>
+          <th>followers</th>
+          <th><%= link_to @end_user.followers.count, end_user_followers_path(@end_user) %></th>
+        </tr>
+        </table>
+        <%= link_to "いいねした投稿", end_user_favorites_path(@end_user) %>
+        
 <% if current_end_user.name != "Guest" %>
   <% if @end_user != current_end_user %>
   <div>
@@ -42,14 +43,17 @@
   <% end %>
   </div>
 <% end %>
+ </div>
 
 <!-- ユーザーの投稿一覧 -->
-
-<% @nails.each do |nail| %>
-<div>
-  <%= link_to nail_path(nail.id) do %>
-    <%= image_tag nail.get_image, size: '200x200' %>
+  <div class="row">
+  <% @nails.each do |nail| %>
+    <div class='col-3 offset-md-1'>
+      <%= link_to nail_path(nail.id) do %>
+        <%= image_tag nail.get_image, size:"200x200" %>
+      <% end %>
+      <p><%= nail.title %></p>
+    </div>
   <% end %>
-  <p><%= nail.title %></p>
+  </div>
 </div>
-<% end %>

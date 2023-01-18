@@ -3,6 +3,7 @@
 <table class="table table-hover table-inverse">
   <!--検索対象モデルがUserの時 -->
   <% if @range == "User" %>
+  <h3>Users search for "<%= @word %>"</h3>
     <tbody>
       <% @end_users.each do |end_user| %>
         <tr>
@@ -16,6 +17,7 @@
     </tbody>
   <% else %>
   <!--検索対象モデルがUserではない時 -->
+  <h3>Nails search for "<%= @word %>"</h3>
     <tbody>
       <% @nails.each do |nail| %>
         <tr>

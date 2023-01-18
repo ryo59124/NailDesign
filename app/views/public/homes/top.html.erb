@@ -2,17 +2,19 @@
   <div class="row">
     <div class='mx-auto col-11 col-sm-10 col-lg-8 col-xl-6'>
       <h1><i class="fad fa-star-shooting"></i><strong>Nail Design</strong></h1>
-      <p>In  <i class="fas fa-ring"></i></i><strong>Nail Design</strong>, </p>
+      <p>In Nail Design, </p>
       <p>you can share and find nail design.</p>
+      <p>サイトをご覧いただきありがとうございます。</p>
+      <p>素敵なネイルに巡り会えますように！</p>
       <div class="btn-wrapper col-10 mx-auto">
          <div class="row">
-          <%= link_to 'Guest Log in', guests_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
+          <%= link_to 'Guest!', guests_guest_sign_in_path, class: "btn btn-sm btn-block mb-3 sign_in", method: :post, style:"background-color:#db7093;" %>
         </div>
         <div class="row">
-          <%#= link_to 'Log in',new_user_session_path, class: "btn btn-info btn-sm btn-block mb-3 sign_in" %>
+          <%= link_to 'Log in',new_end_user_session_path, class: "btn btn-sm btn-block mb-3 sign_in", style:"background-color:#f08080;" %>
         </div>
         <div class="row">
-          <%#= link_to 'Sign up',new_user_registration_path, class: "btn btn-success btn-sm btn-block sign_up" %>
+          <%= link_to 'Sign up',new_end_user_registration_path, class: "btn btn-sm btn-block sign_up", style:"background-color:#ffb6c1;" %>
         </div>
       </div>
     </div>

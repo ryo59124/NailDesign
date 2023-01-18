@@ -20,13 +20,13 @@ class Nail < ApplicationRecord
     if search == "perfect_match"
       @nail = Nail.where("body LIKE?","#{word}")
     elsif search == "forward_match"
-      @nail = Book.where("body LIKE?","#{word}%")
+      @nail = Nail.where("body LIKE?","#{word}%")
     elsif search == "backward_match"
-      @nail = Book.where("body LIKE?","%#{word}")
+      @nail = Nail.where("body LIKE?","%#{word}")
     elsif search == "partial_match"
-      @nail = Book.where("body LIKE?","%#{word}%")
+      @nail = Nail.where("body LIKE?","%#{word}%")
     else
-      @book = Book.all
+      @nail = Nail.all
     end
   end
   

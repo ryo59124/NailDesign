@@ -1,11 +1,26 @@
-<header class="bg-secondary text-monospace">
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container ">
-      <%#= link_to root_path do %>
-        <%#= image_tag 'logo.png', size: "150x50" %>
-      <%# end %>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+<header class="text-monospace"  style="background-color:#E79D9D;">
+  <nav class="navbar navbar-expand-lg" >
+    <div class="container">
+      <div>
+      <%= link_to root_path do %>
+        <%= image_tag 'Nail.logo.png', size: "80x80" %>
+      <% end %>
+      </div>
+      <div>
+      <% if end_user_signed_in? %>
+        <% if current_end_user.name != "Guest" %>
+          ようこそ！ <%= link_to end_user_path(current_end_user), class: "font-weight-bold text-reset" do %>
+            <% current_end_user.name %>
+          <% end %>
+          さん
+        <% else %>
+          ようこそ！ ゲストさん
+        <% end %>
+      <% end %>
+      </div>
+      <div class= "nav-link">
+      <button class="navbar-toggler" style="background-color: #E79D9D; border-color: #ffffff;" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-sort-down"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
@@ -13,117 +28,51 @@
         <!--adminログイン時のヘッダー-->
             <% if admin_signed_in? %>
               <li>
-                <%= link_to "投稿一覧", admin_nails_path, class: 'nav-link text-light' %>
+                <%= link_to "投稿一覧", admin_nails_path, class: 'nav-link border-bottom' %>
               </li>
               <li >
-                <%= link_to "会員一覧", admin_end_users_path, class: 'nav-link text-light'  %>
+                <%= link_to "会員一覧", admin_end_users_path, class: 'nav-link border-bottom'  %>
               </li>
               <li>
-                <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link text-light' %>
-              </li>
-              <li class="nav-link">
-                <div class="search_form">
-                  <%= form_with url: search_path, local: true, method: :get do |f| %>
-                    <%= f.text_field :word %>
-                    <%= f.select :range, options_for_select([['Nail'], ['User']]) %>
-                    <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
-                    <%= f.submit "検索", class: "btn btn-primary" %>
-                  <% end %>
-                </div>
+                <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link border-bottom' %>
               </li>
 
             <!--end_usersログイン時のヘッダー-->
             <% elsif end_user_signed_in? %>
-              <li class= "nav-link text-light">
-                <% if current_end_user.name != "Guest" %>
-                  ようこそ！ <%= link_to end_user_path(current_end_user), class: "text-white font-weight-bold" do %>
-                  <%= current_end_user.name %>
-                  さん
-                  <% end %>
-                <% else %>
-                  ようこそ！ ゲストさん
-                <% end %>
-              </li>
               <li>
-                <%= link_to "Users", end_users_path, class: 'nav-link text-light' %>
+                <%= link_to "Users", end_users_path, class: 'nav-link border-bottom', style:"color:#2f4f4f;" %>
               </li>
               <li>
                 <% if current_end_user.name != "Guest" %>
-                  <%= link_to "New Post", new_nail_path, class: 'nav-link text-light' %>
+                  <%= link_to "New Post", new_nail_path, class: 'nav-link border-bottom', style:"color:#2f4f4f;" %>
                 <% end %>
               </li>
               <li>
-                <%= link_to "Nails", nails_path, class: 'nav-link text-light' %>
+                <%= link_to "Nails", nails_path, class: 'nav-link border-bottom', style:"color:#2f4f4f;" %>
               </li>
               <li>
-                <%= link_to "Log out", destroy_end_user_session_path, method: :delete, class: 'nav-link text-light' %>
+                <%= link_to "Log out", destroy_end_user_session_path, method: :delete, class: 'nav-link border-bottom', style:"color:#2f4f4f;" %>
               </li>
-              <li class="nav-link">
-                <div class="search_form">
-                  <%= form_with url: search_path, local: true, method: :get do |f| %>
-                    <%= f.text_field :word %>
-                    <%= f.select :range, options_for_select([['Nail'], ['User']]) %>
-                    <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
-                    <%= f.submit "検索", class: "btn btn-primary" %>
-                  <% end %>
-                </div>
-              </li>
-              <% elsif end_user_signed_in? %>
-              <li class= "nav-link text-light">
-                ようこそ！ <%= link_to end_user_path(current_end_user), class: "text-white font-weight-bold" do %>
-                <%= current_end_user.name %>
-                <% end %>
-                さん
-              </li>
-              <li>
-                <%= link_to "Users", end_users_path, class: 'nav-link text-light' %>
-              </li>
-              <li>
-                <%= link_to "New Post", new_nail_path, class: 'nav-link text-light' %>
-              </li>
-              <li>
-                <%= link_to "Nails", nails_path, class: 'nav-link text-light' %>
-              </li>
-              <li>
-                <%= link_to "Log out", destroy_end_user_session_path, method: :delete, class: 'nav-link text-light' %>
-              </li>
-              <li class="nav-link">
-                <div class="search_form">
-                  <%= form_with url: search_path, local: true, method: :get do |f| %>
-                    <%= f.text_field :word %>
-                    <%= f.select :range, options_for_select([['Nail'], ['User']]) %>
-                    <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
-                    <%= f.submit "検索", class: "btn btn-primary" %>
-                  <% end %>
-                </div>
-              </li>
+              
             <% else %>
             <!--ログイン前時のヘッダー-->
               <li>
-                <%= link_to "Home", root_path, class: 'nav-link text-light' %>
+                <%= link_to "Home", root_path, class: 'nav-link border-bottom', style:"color:#2f4f4f;" %>
               </li>
               <li>
-                <%= link_to "Nails", nails_path, class: 'nav-link text-light' %>
+                <%= link_to "Sign up", new_end_user_registration_path, data: {"turbolinks" => false}, class: 'nav-link border-bottom', style:"color:#2f4f4f;" %>
               </li>
               <li>
-                <%= link_to "Sign up", new_end_user_registration_path, data: {"turbolinks" => false}, class: 'nav-link text-light' %>
-              </li>
-              <li>
-                <%= link_to "Log in", new_end_user_session_path, class: 'nav-link text-light' %>
-              </li>
-              <li class="nav-link">
-                <div class="search_form">
-                  <%= form_with url: search_path, local: true, method: :get do |f| %>
-                    <%= f.text_field :word %>
-                    <%= f.select :range, options_for_select([['Nail'], ['User']]) %>
-                    <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
-                    <%= f.submit "検索", class: "btn btn-primary" %>
-                  <% end %>
-                </div>
+                <%= link_to "Log in", new_end_user_session_path, class: 'nav-link border-bottom', style:"color:#2f4f4f;" %>
               </li>
             <% end %>
             </ul>
           </div>
-        </div>
-      </nav>
-    </header>
+    </div> 
+  </nav>
+  <div class="container">
+    <div class="row d-flex justify-content-end">
+      <%= render 'layouts/search' %>
+    </div>
+  </div>
+</header>
