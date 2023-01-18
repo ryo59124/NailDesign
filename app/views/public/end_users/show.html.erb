@@ -18,42 +18,45 @@
           <th>followers</th>
           <th><%= link_to @end_user.followers.count, end_user_followers_path(@end_user) %></th>
         </tr>
-        </table>
-        <%= link_to "いいねした投稿", end_user_favorites_path(@end_user) %>
+      </table>
         
-<% if current_end_user.name != "Guest" %>
-  <% if @end_user != current_end_user %>
-  <div>
-    <% if current_end_user.following?(@end_user) %>
-      <%= link_to "フォロー外す", end_user_relationships_path(@end_user.id), method: :delete, class: 'btn btn-info' %>
-      <% if current_end_user != @end_user %>
+      <%= link_to "いいねした投稿", end_user_favorites_path(@end_user) %>
+        
+      <% if current_end_user.name != "Guest" %>
+      <% if @end_user != current_end_user %>
+      <div>
+        <% if current_end_user.following?(@end_user) %>
+          <%= link_to "フォロー外す", end_user_relationships_path(@end_user.id), method: :delete, class: 'btn btn-info' %>
+        <% else %>
+          <%= link_to "フォローする", end_user_relationships_path(@end_user.id), method: :post, class: 'btn btn-success' %>
+        <% end %>
+        
         <%= link_to 'chatを始める', chat_path(@end_user.id)%>
+      </div>
       <% end %>
-    <% else %>
-      <%= link_to "フォローする", end_user_relationships_path(@end_user.id), method: :post, class: 'btn btn-success' %>
-    <% end %>
-  </div>
-  <% end %><br>
-
-  <div class='row'>
-  <% if @end_user == current_end_user %>
-    <%= link_to edit_end_user_path(@end_user), class: "btn btn-outline-secondary btn-block" do %>
-      <i class="fas fa-user-cog"></i>
-    <% end %>
-  <% end %>
-  </div>
-<% end %>
- </div>
+      <br>
+      <div>
+      <% if @end_user == current_end_user %>
+        <%= link_to edit_end_user_path(@end_user), class: "btn btn-outline-secondary btn-block" do %>
+          <i class="fas fa-user-cog"></i>
+        <% end %>
+      <% end %>
+      </div>
+      <% end %>
+    </div>
 
 <!-- ユーザーの投稿一覧 -->
-  <div class="row">
-  <% @nails.each do |nail| %>
-    <div class='col-3 offset-md-1'>
-      <%= link_to nail_path(nail.id) do %>
-        <%= image_tag nail.get_image, size:"200x200" %>
-      <% end %>
-      <p><%= nail.title %></p>
+    <div class="col-9">
+      <div class="row">
+        <% @nails.each do |nail| %>
+        <div class='col-3 offset-md-1'>
+          <%= link_to nail_path(nail.id) do %>
+            <%= image_tag nail.get_image, size:"200x200" %>
+          <% end %>
+          <p><%= nail.title %></p>
+        </div>
+        <% end %>
+      </div>
     </div>
-  <% end %>
   </div>
 </div>
