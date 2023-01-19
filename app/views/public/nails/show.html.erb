@@ -1,65 +1,80 @@
-<div>
-  <%= image_tag @nail.get_image, size:"400x400" %>
-  <p><%= @nail.title %></p>
-  <p>説明：<%= @nail.body %></p>
-  <p>投稿ユーザー画像：<%= image_tag @nail.end_user.get_profile_image, size:"50x50" %></p>
-  <p>User：<%= @nail.end_user.name %></p>
-  <% if @end_user != current_end_user %>
-  <div>
-    <% if current_end_user.name != "Guest" %>
-    <% if current_end_user.following?(@end_user) %>
-      <%= link_to "フォロー外す", end_user_relationships_path(@end_user.id), method: :delete, class: 'btn btn-info' %>
-      <% if current_end_user != @end_user %>
-        <%= link_to chat_path(end_user.id) do %>
-          <i class="fas fa-comments"></i> CHAT
+<div class='container mt-5'>
+  <div class='row'>
+    <div class='col-md-3 text-center mx-auto'>
+      <%= image_tag @nail.get_image, class: "mx-auto shadow-lg", size:"350x350" %>
+    </div>
+    <div class="col-md-3 ml-5 text-align">
+      <div>　</div>
+        <h4><%= @nail.title %></h4>
+        <div class="my-4"><%= @nail.body %></div></br>
+        <div>
+          <% if current_end_user.name != "Guest" %>
+            <% if @nail.favorited_by?(current_end_user) %>
+              <%= link_to nail_favorites_path(@nail), method: :delete do %>
+                ♥<%= @nail.favorites.count %>
+              <% end %>
+            <% else %>
+              <%= link_to nail_favorites_path(@nail), method: :post do %>
+                ♡<%= @nail.favorites.count %>
+              <% end %>
+            <% end %>
+          <% else %>
+            ♥<%= @nail.favorites.count %>
+          <% end %>
+          <i class="far fa-comment-dots ml-2"></i><%= @nail.comments.count %>
+        </div>
+        <div>　</div>
+        <div>
+          <%= image_tag @nail.end_user.get_profile_image, class: "rounded-circle", size:"50x50" %>
+          By:<%= @nail.end_user.name %>
+        </div>
+        <% if @end_user != current_end_user %>
+        <div>
+        <% if current_end_user.name != "Guest" %>
+          <% if current_end_user.following?(@end_user) %>
+            <%= link_to "フォロー外す", end_user_relationships_path(@end_user.id), method: :delete, class: 'btn btn-info' %>
+          <% else %>
+            <%= link_to "フォローする", end_user_relationships_path(@end_user.id), method: :post, class: 'btn btn-success' %>
+          <% end %>
+          <%= link_to chat_path(end_user.id) do %>
+            <i class="fas fa-comments"></i> CHAT
+          <% end %>
         <% end %>
-      <% end %>
-    <% else %>
-      <%= link_to "フォローする", end_user_relationships_path(@end_user.id), method: :post, class: 'btn btn-success' %>
-    <% end %>
-    <% end %>
+        </div>
+        <% end %>
+        <div class="mt-1">投稿日：<%= @nail.created_at.strftime('%Y/%m/%d') %></div>
+        <div class="mt-1">
+          <% if @nail.end_user == current_end_user %>
+            <%= link_to nail_path(@nail), method: :delete, style: "color:#8b0000;" do %>
+              <i class="fas fa-trash"></i> 投稿削除
+            <% end %>
+          <% end %>
+        </div>
+    </div>
+    <div class="col-md-4 pl-5 mx-auto text-align">
+      <div>　</div>
+      <div>
+        <% @nail.comments.each do |comment| %>
+          <p>
+           <i class="fas fa-comment-dots"></i> <%= comment.comment %> ( <%= link_to comment.end_user.name, end_user_path(comment.end_user) %>・<%= comment.created_at.strftime('%y/%m/%d') %>)
+            <% if comment.end_user == current_end_user %>
+              <%= link_to nail_comment_path(comment.nail, comment), method: :delete, style: "color:#8b0000;" do %>
+                <i class="fas fa-trash-alt"></i>
+              <% end %>
+            <% end %>
+          </p>
+            <%#= image_tag comment.end_user.get_profile_image, class: "rounded-circle", size:"20x20" %>
+        <% end %>
+      </div>
+      <div>　</div>
+      <div>
+        <% if current_end_user.name != "Guest" %>
+        <%= form_with model: [@nail, @comment] do |f| %>
+          <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+          <%= f.submit "送信する" %>
+        <% end %>
+        <% end %>
+      </div>
+    </div>
   </div>
-<% end %><br>
-  <p>投稿日：<%= @nail.created_at.strftime('%Y/%m/%d') %></p>
-  <% if @nail.end_user == current_end_user %>
-    <%= link_to "Delete", nail_path(@nail), method: :delete %>
-  <% end %>
-  <% if current_end_user.name != "Guest" %>
-    <% if @nail.favorited_by?(current_end_user) %>
-      <p>
-        <%= link_to nail_favorites_path(@nail), method: :delete do %>
-          ♥<%= @nail.favorites.count %>
-        <% end %>
-      </p>
-    <% else %>
-      <p>
-        <%= link_to nail_favorites_path(@nail), method: :post do %>
-          ♡<%= @nail.favorites.count %>
-        <% end %>
-      </p>
-    <% end %>
-  <% else %>
-    ♥<%= @nail.favorites.count %>
-  <% end %>
-</div>
-<div>
-  <p>コメント件数：<%= @nail.comments.count %></p>
-  
-  <% @nail.comments.each do |comment| %>
-    <p><%= image_tag comment.end_user.get_profile_image, size:"50x50" %></p>
-    <%= comment.end_user.name %>
-    <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
-    <% if comment.end_user == current_end_user %>
-      <%= link_to nail_comment_path(comment.nail, comment), method: :delete do %>
-        <i class="fas fa-trash-alt"></i>
-      <% end %>
-    <% end %>
-  <% end %>
-  
-  <% if current_end_user.name != "Guest" %>
-    <%= form_with model: [@nail, @comment] do |f| %>
-      <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-      <%= f.submit "送信する" %>
-    <% end %>
-  <% end %>
 </div>

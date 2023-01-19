@@ -27,16 +27,22 @@ class Public::EndUsersController < ApplicationController
     @favorite_nails = Nail.find(favorites)
   end
 
-  def unsubcribe
+  def unsubscribe
   end
 
   def withdraw
+    @end_user = current_end_user
+    # is_deletedカラムをtrueに変更することにより削除フラグを立てる
+    @end_user.update(is_deleted: true)
+    reset_session
+    flash[:notice] = "退会処理を実行いたしました"
+    redirect_to root_path
   end
   
   private
 
   def end_user_params
-    params.require(:end_user).permit(:name, :introduction, :profile_image)
+    params.require(:end_user).permit(:name, :introduction, :profile_image, :email)
   end
   
   def set_user

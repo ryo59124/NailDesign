@@ -11,6 +11,7 @@
   </thead>
   <tbody>
     <% @end_users.each do |end_user| %>
+    <% if end_user.is_deleted == false %>
     <% if end_user.name != "Guest" && end_user.name != "guestuser" %>
       <tr>
         <td><%= image_tag end_user.get_profile_image, size: '50x50' %></td>
@@ -37,6 +38,7 @@
         <% end %>
         </td>
       </tr>
+    <% end %>
     <% end %>
     <% end %>
   </tbody>
