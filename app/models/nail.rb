@@ -17,14 +17,8 @@ class Nail < ApplicationRecord
   end
   
   def self.looks(search, word)
-    if search == "perfect_match"
-      @nail = Nail.where("body LIKE?","#{word}")
-    elsif search == "forward_match"
-      @nail = Nail.where("body LIKE?","#{word}%")
-    elsif search == "backward_match"
-      @nail = Nail.where("body LIKE?","%#{word}")
-    elsif search == "partial_match"
-      @nail = Nail.where("body LIKE?","%#{word}%")
+    if search != ""
+      @nail = Nail.where("body LIKE? OR title LIKE?","%#{word}%","%#{word}%")
     else
       @nail = Nail.all
     end

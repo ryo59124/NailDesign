@@ -3,18 +3,24 @@
     <div class='col-md-3 text-center mx-auto'>
       <%= image_tag @nail.get_image, class: "mx-auto shadow-lg", size:"350x350" %>
     </div>
-    <div class="col-md-3 ml-5 text-align">
+    <div class="col-md-3 ml-5 mt-3 text-align">
+      <div>
+          <%= image_tag @nail.end_user.get_profile_image, class: "rounded-circle", size:"50x50" %>
+          <%= @nail.end_user.name %>
+      </div>
       <div>　</div>
         <h4><%= @nail.title %></h4>
         <div class="my-4"><%= @nail.body %></div></br>
+        <div class="mt-1"><%= @nail.created_at.strftime('%Y/%m/%d') %></div>
+        
         <div>
           <% if current_end_user.name != "Guest" %>
             <% if @nail.favorited_by?(current_end_user) %>
-              <%= link_to nail_favorites_path(@nail), method: :delete do %>
+              <%= link_to nail_favorites_path(@nail), method: :delete, style: "color:#fa8070" do %>
                 ♥<%= @nail.favorites.count %>
               <% end %>
             <% else %>
-              <%= link_to nail_favorites_path(@nail), method: :post do %>
+              <%= link_to nail_favorites_path(@nail), method: :post, class: "text-reset" do %>
                 ♡<%= @nail.favorites.count %>
               <% end %>
             <% end %>
@@ -24,32 +30,38 @@
           <i class="far fa-comment-dots ml-2"></i><%= @nail.comments.count %>
         </div>
         <div>　</div>
-        <div>
-          <%= image_tag @nail.end_user.get_profile_image, class: "rounded-circle", size:"50x50" %>
-          By:<%= @nail.end_user.name %>
-        </div>
+        
+        <% if current_end_user.name != "Guest" %>
         <% if @end_user != current_end_user %>
         <div>
-        <% if current_end_user.name != "Guest" %>
           <% if current_end_user.following?(@end_user) %>
-            <%= link_to "フォロー外す", end_user_relationships_path(@end_user.id), method: :delete, class: 'btn btn-info' %>
+            <%= link_to end_user_relationships_path(@end_user.id), method: :delete, class: 'btn border-dark text-reset' do %>
+              <i class="fas fa-user-minus"></i>
+            <% end %>
           <% else %>
-            <%= link_to "フォローする", end_user_relationships_path(@end_user.id), method: :post, class: 'btn btn-success' %>
+            <%= link_to end_user_relationships_path(@end_user.id), method: :post, class: 'btn border-dark text-success' do %>
+              <i class="fas fa-user-plus"></i>
+            <% end %>
           <% end %>
-          <%= link_to chat_path(end_user.id) do %>
+      
+          <%= link_to chat_path(@end_user.id), class: "btn border-dark text-reset" do %>
             <i class="fas fa-comments"></i> CHAT
           <% end %>
-        <% end %>
         </div>
         <% end %>
-        <div class="mt-1">投稿日：<%= @nail.created_at.strftime('%Y/%m/%d') %></div>
+        <% end %>
+        
         <div class="mt-1">
           <% if @nail.end_user == current_end_user %>
-            <%= link_to nail_path(@nail), method: :delete, style: "color:#8b0000;" do %>
+            <%= link_to edit_nail_path(@nail), style: "color:#008080" do %>
+              <i class="fas fa-edit"></i> 編集
+            <% end %>
+            <%= link_to nail_path(@nail), method: :delete, class: "ml-2", style: "color:#8b0000;" do %>
               <i class="fas fa-trash"></i> 投稿削除
             <% end %>
           <% end %>
         </div>
+        
     </div>
     <div class="col-md-4 pl-5 mx-auto text-align">
       <div>　</div>

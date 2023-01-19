@@ -1,15 +1,30 @@
-<% @nails.each do |nail| %>
-<div>
-  <%= link_to admin_nail_path(nail.id) do %>
-    <%= image_tag nail.get_image, size:"300x300" %>
+<div class="card-list-container ml-3 mr-3">
+  <div class="row">
+  <% @nails.each do |nail| %>
+  <div class="col-md-3 py-4">
+  <div class="card shadow-lg">
+    <%= link_to admin_nail_path(nail.id) do %>
+      <%= image_tag nail.get_image, class:"card-img-top img-responsive center-block", size:"350x350"%>
+    <% end %>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 card-title text-center">
+          <div><strong><%= nail.title %></strong></div>
+          <div>
+            ♥ <%= nail.favorites.count %>
+            <i class="far fa-comment-dots"></i> <%= nail.comments.count %>
+          </div>
+          <div><i class="fas fa-user-edit"></i> <%= nail.end_user.name %></div>
+          <div>
+            <%= link_to admin_nail_path(nail), method: :delete do %>
+              <i class="fas fa-trash-alt"></i>
+            <% end %>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <% end %>
-  <p><%= image_tag nail.end_user.get_profile_image, size:"50x50" %></p>
-  <p><%= nail.title %></p>
-  <p><%= nail.end_user.name %></p>
-  <p>♥<%= nail.favorites.count %></p>
-  <p><%= nail.comments.count %>件のコメント</p>
-  <%= link_to admin_nail_path(nail), method: :delete do %>
-    <i class="fas fa-trash-alt"></i>
-  <% end %>
+  </div>
 </div>
-<% end %>

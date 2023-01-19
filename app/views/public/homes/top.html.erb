@@ -1,9 +1,7 @@
 <div class="container">
   <div class="row">
-    <div class='mx-auto col-11 col-sm-10 col-lg-8 col-xl-6'>
-      <h1><i class="fad fa-star-shooting"></i><strong>Nail Design</strong></h1>
-      <p>In Nail Design, </p>
-      <p>you can share and find nail design.</p>
+    <div class='mx-auto col-lg-5 text-center mt-5'>
+      <h1></i><strong>Nail Design</strong></h1>
       <p>サイトをご覧いただきありがとうございます。</p>
       <p>素敵なネイルに巡り会えますように！</p>
       <div class="btn-wrapper col-10 mx-auto">
@@ -15,6 +13,13 @@
         </div>
         <div class="row">
           <%= link_to 'Sign up',new_end_user_registration_path, class: "btn btn-sm btn-block sign_up", style:"background-color:#ffb6c1;" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5 mt-5">
+      <div class="text-center">
+        <div class="img_field">
+            <%= image_tag 'nail.top.jpg', size: "350x350" %>
         </div>
       </div>
     </div>

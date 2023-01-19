@@ -1,34 +1,33 @@
-<h2>検索結果</h2>
-
-<table class="table table-hover table-inverse">
-  <!--検索対象モデルがUserの時 -->
-  <% if @range == "User" %>
-  <h3>Users search for "<%= @word %>"</h3>
-    <tbody>
-      <% @end_users.each do |end_user| %>
-        <tr>
-          <td>
-            <%= link_to end_user_path(end_user.id) do %>
-              <%= end_user.name %>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  <% else %>
-  <!--検索対象モデルがUserではない時 -->
-  <h3>Nails search for "<%= @word %>"</h3>
-    <tbody>
-      <% @nails.each do |nail| %>
-        <tr>
-          <td>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 px-sm-0 offset-sm-1 mt-5">
+      <!--検索対象モデルがUserの時 -->
+      <% if @range == "User" %>
+      <h3>Users search for "<%= @word %>"</h3>
+        <table class="table table-hover table-inverse">
+          <tbody>
+          <% @end_users.each do |end_user| %>
+            <tr>
+              <td>
+                <%= link_to end_user_path(end_user.id) do %>
+                  <%= end_user.name %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      <% else %>
+      <!--検索対象モデルがUserではない時 -->
+        <h3>Nails search for "<%= @word %>"</h3>
+        <div>
+          <% @nails.each do |nail| %>
             <%= link_to nail_path(nail.id) do %>
-              <%= image_tag nail.get_image %>
+              <%= image_tag nail.get_image, size: "200x200" %>
             <% end %>
-          </td>
-          <td><%= nail.title %></td>
-        </tr>
+          <% end %>
+        </div>
       <% end %>
-    </tbody>
-  <% end %>
-</table>
+    </div>
+  </div>
+</div>

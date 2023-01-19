@@ -1,13 +1,11 @@
-<div class="container mt-5">
-  <h3>Favorites</h3>
-  <div class="card-list-container ml-3 mr-3">
+<div class="container mt-5 text-center">
+  <h3><i class="fas fa-star"></i> Favorites <i class="fas fa-star"></i></h3>
     <div class="row">
     <% @favorite_nails.each do |nail| %>
-      <div class="col-md-3 py-4">
+      <div class="col-xl-3 py-3 ml-3 mr-3">
         <%= link_to nail_path(nail.id) do %>
           <%= image_tag nail.get_image, class: "shadow-lg", size:"300x300" %>
         <% end %>
-      </div>
       </div>
     <% end %>
     </div>

@@ -1,19 +1,43 @@
-<div>
-  <%= image_tag @nail.get_image, size:"400x400" %>
-  <p><%= @nail.title %></p>
-  <p>説明：<%= @nail.body %></p>
-  <p>投稿ユーザー画像：<%= image_tag @nail.end_user.get_profile_image, size:"50x50" %></p>
-  <p>User：<%= @nail.end_user.name %></p>
-  <p>投稿日：<%= @nail.created_at.strftime('%Y/%m/%d') %></p>
-  <p>♥<%= @nail.favorites.count %></p>
-  <p>コメント件数：<%= @nail.comments.count %></p>
-  <%= link_to "投稿削除", admin_nail_path(@nail), method: :delete %>
-</div>
-<div>
-  <% @nail.comments.each do |comment| %>
-    <p><%= image_tag comment.end_user.get_profile_image, size:"50x50" %></p>
-    <%= comment.end_user.name %>
-    <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
-    <%= link_to "コメントを削除", admin_nail_comment_path(comment.nail, comment), method: :delete %>
-  <% end %>
+<div class='container mt-5'>
+  <div class='row'>
+    <div class='col-md-3 text-center mx-auto'>
+      <%= image_tag @nail.get_image, class: "mx-auto shadow-lg", size:"350x350" %>
+    </div>
+    <div class="col-md-3 ml-5 mt-3 text-align">
+      <div>
+          <%= image_tag @nail.end_user.get_profile_image, class: "rounded-circle", size:"50x50" %>
+          <%= link_to @nail.end_user.name, admin_end_user_path(@nail.end_user) %>
+      </div>
+      <div>　</div>
+        <h4><%= @nail.title %></h4>
+        <div class="my-4"><%= @nail.body %></div></br>
+        <div class="mt-1"><%= @nail.created_at.strftime('%Y/%m/%d') %></div>
+        
+        <div>
+          ♥<%= @nail.favorites.count %>
+          <i class="far fa-comment-dots ml-2"></i><%= @nail.comments.count %>
+        </div>
+        <div>　</div>
+
+        <div class="mt-1">
+            <%= link_to admin_nail_path(@nail), method: :delete, class: "ml-2", style: "color:#8b0000;" do %>
+              <i class="fas fa-trash"></i> 投稿削除
+            <% end %>
+        </div>
+        
+    </div>
+    <div class="col-md-4 pl-5 mx-auto text-align">
+      <div>　</div>
+      <div>
+        <% @nail.comments.each do |comment| %>
+          <p>
+           <i class="fas fa-comment-dots"></i> <%= comment.comment %> ( <%= link_to comment.end_user.name, end_user_path(comment.end_user) %>・<%= comment.created_at.strftime('%y/%m/%d') %>)
+            <%= link_to nail_comment_path(comment.nail, comment), method: :delete, style: "color:#8b0000;" do %>
+              <i class="fas fa-trash-alt"></i>
+            <% end %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

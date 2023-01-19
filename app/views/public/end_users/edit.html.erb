@@ -1,15 +1,14 @@
-
 <div class='container'>
   <div class='row'>
     <div class="col-sm-12 col-md-8 mt-5 col-lg-5 px-5 px-sm-0 mx-auto">
     <h2>Edit User Infomation</h2>
     <%= form_with model: @end_user, local:true do |f| %>
-      <%= render 'layouts/errors', obj: @end_user %>
+    <%= render 'layouts/errors', obj: @end_user %>
       <div class="form-group">
         <%= f.label :name %>
         <%= f.text_field :name, class: "form-control name" %>
       </div>
-     <div class="form-group">
+      <div class="form-group">
         <%= f.label :image %>
         <%= f.file_field :profile_image, class: "form-control-file user_image", accept: 'image/*' %>
       </div>
@@ -20,7 +19,8 @@
       <div class="form-group">
         <%= f.submit class: 'btn btn-secondary' %>
       </div>
-        <%= link_to '退会する', unsuscribe_path, data: { confilm: "本当に退会しますか？" },class: "glyphicon glyphicon-tint btn btn-danger ml-4"%>
+      <div><%= link_to '退会する', unsuscribe_path, data: { confilm: "本当に退会しますか？" },class: "btn btn-danger"%></div>
     <% end %>
+    </div>
   </div>
 </div>

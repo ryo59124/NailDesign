@@ -24,8 +24,8 @@ class Public::NailsController < ApplicationController
   end
 
   def edit
+    @nail = Nail.find(params[:id])
   end
-
 
   def destroy
     @nail = Nail.find(params[:id])
@@ -34,6 +34,12 @@ class Public::NailsController < ApplicationController
   end
 
   def update
+    @nail = Nail.find(params[:id])
+    if @nail.update(nail_params)
+      redirect_to nail_path(@nail), notice: "You have updated nail successfully."
+    else
+      render :edit
+    end
   end
   
   private

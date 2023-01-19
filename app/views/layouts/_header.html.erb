@@ -50,7 +50,14 @@
                 <%= link_to "Nails", nails_path, class: 'nav-link border-bottom', style:"color:#7b6ebb;" %>
               </li>
               <li>
-                <%= link_to "Users　", end_users_path, class: 'nav-link border-bottom', style:"color:#8b008b;" %>
+                <% if current_end_user.name != "Guest" %>
+                  <%= link_to "Favorites", end_user_favorites_path(current_end_user), class: 'nav-link border-bottom', style:"color:#c71585;" %>
+                <% end %>
+              </li>
+              <li>
+                <% if current_end_user.name != "Guest" %>
+                  <%= link_to "Users　", end_users_path, class: 'nav-link border-bottom', style:"color:#8b008b;" %>
+                <% end %>
               </li>
               <li>
                 <%= link_to "Log out", destroy_end_user_session_path, method: :delete, class: 'nav-link border-bottom', style:"color:#cd5c5c;" %>
