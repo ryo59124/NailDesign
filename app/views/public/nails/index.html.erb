@@ -4,28 +4,16 @@
   <div class="col-md-3 py-4">
   <div class="card shadow-lg">
     <%= link_to nail_path(nail.id) do %>
-      <%= image_tag nail.get_image, class:"card-img-top img-responsive center-block", size:"350x350"%>
+      <%= image_tag nail.get_image, class:"card-img-top center-block", size:"350x350"%>
     <% end %>
     <div class="card-body">
       <div class="row">
         <div class="col-12 card-title text-center">
             <div><strong><%= nail.title %></strong></div>
-            <div>
-            <% if current_end_user.name != "Guest" %>
-              <% if nail.favorited_by?(current_end_user) %>
-                <%= link_to nail_favorites_path(nail), method: :delete do %>
-                  ♥ <%= nail.favorites.count %>
-                <% end %>
-              <% else %>
-                <%= link_to nail_favorites_path(nail), method: :post do %>
-                  ♡ <%= nail.favorites.count %>
-                <% end %>
-              <% end %>
-            <% else %>
-              ♥ <%= nail.favorites.count %>
-            <% end %>
-          　<i class="far fa-comment-dots"></i> <%= nail.comments.count %>
-          </div>
+            <div class="favorite-btn">
+              <%= render "public/favorites/favorites", nail: nail %>
+              　<i class="far fa-comment-dots"></i> <%= nail.comments.count %>
+            </div>
             <div><i class="fas fa-user-edit"></i> <%= nail.end_user.name %></div>
         </div>
         </div>

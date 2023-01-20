@@ -1,6 +1,6 @@
 class Public::NailsController < ApplicationController
   def index
-    @nails = Nail.all
+    @nails = Nail.all.order(created_at: :desc)
   end
   
   def new

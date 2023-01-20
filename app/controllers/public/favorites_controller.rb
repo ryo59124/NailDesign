@@ -1,16 +1,15 @@
 class Public::FavoritesController < ApplicationController
+
   def create
-    nail = Nail.find(params[:nail_id])
-    favorite = current_end_user.favorites.new(nail_id: nail.id)
+    @nail = Nail.find(params[:nail_id])
+    favorite = @nail.favorites.new(end_user_id: current_end_user.id)
     favorite.save
-    redirect_to nail_path(nail)
   end
 
   def destroy
-    nail = Nail.find(params[:nail_id])
-    favorite = current_end_user.favorites.find_by(nail_id: nail.id)
+    @nail = Nail.find(params[:nail_id])
+    favorite = @nail.favorites.find_by(end_user_id: current_end_user.id)
     favorite.destroy
-    redirect_to nail_path(nail)
   end
 
   def index

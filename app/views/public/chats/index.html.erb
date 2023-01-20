@@ -1,11 +1,23 @@
-<table class="rooms">
-  <tbody>
-    <tr>
-      <td>
-        <%@chat_partners.each do |chat_partner|%>
-          <%=link_to "#{chat_partner.email}さんとのトークルーム","/chats/#{chat_partner.id}"%>
-        <%end%>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="container text-center">
+  <div class="col-7 mx-auto mt-4">
+    <h1>Chat Rooms</h1>
+    <table class="table text-reset mt-2">
+      <tbody>
+        <tr>
+          <td></td>
+        </tr>
+        <% @chat_partners.each do |chat_partner| %>
+        <% if chat_partner.is_deleted == false %>
+        <% if chat_partner.name != "Guest" && chat_partner.name != "guestuser" %>
+        <tr>
+          <td>
+            <%= link_to "#{chat_partner.name}さん", chat_path(chat_partner.id), class:"text-reset" %>
+          </td>
+        </tr>
+        <% end %>
+        <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

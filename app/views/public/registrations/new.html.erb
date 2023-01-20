@@ -1,5 +1,5 @@
 <div class = "container">
-<div class="row mt-4 text-center">
+<div class="row mt-3 text-center">
   <div class="col"></br>
     <h3>新規登録</h3>
     <%= form_with(model: @end_user, url: registration_path(resource_name) )do |f| %>
@@ -26,17 +26,16 @@
       
       <div class="actions">
         <%= f.submit "Sign up !", class:"btn text-reset border-dark", style:"background-color:#ffc0cd;"%>
-      </div></br>
+      </div>
       <% end %>
 
-    <div class="col-xs-3 mt-5">
-      <h4>会員の方</h4>
-      <p class="new-link mt-4">
+    <div class="col-xs-3 mt-3">
+      <h5>会員登録がお済みの方</h5>
+      <p class="new-link mt-2">
         <%= link_to "こちら", new_session_path(resource_name), data: {"turbolinks" => false}, class: "btn-link" %>からログインできます
       </p>
-      <p>
-        <%= link_to "Guest", guests_guest_sign_in_path, method: :post, class: "btn-link" %>としてご覧いただくことも可能です
-      </p>
+        <%= link_to "Guest", guests_guest_sign_in_path, method: :post, class: "btn-link" %>としてご覧いただくことも可能です<br>
+       ※ コメントやお気に入り登録には会員登録が必要です
     </div>
   </div>
 </div>

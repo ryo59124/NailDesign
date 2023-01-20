@@ -1,0 +1,13 @@
+<% if current_end_user.name != "Guest" %>
+  <% if nail.favorited_by?(current_end_user) %>
+    <%= link_to nail_favorites_path(nail), method: :delete, remote: true, style: "color:#fa8070;" do %>
+      ♥<%= nail.favorites.count %>
+    <% end %>
+  <% else %>
+    <%= link_to nail_favorites_path(nail), method: :post, remote: true, class: "text-reset" do %>
+      ♡<%= nail.favorites.count %>
+    <% end %>
+  <% end %>
+<% else %>
+  ♥<%= nail.favorites.count %>
+<% end %>

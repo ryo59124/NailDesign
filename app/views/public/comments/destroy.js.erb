@@ -1,0 +1,3 @@
+$("#nail_<%= @nail.id %> .comments-count").html("コメント数:<%= @nail.comments.count %>");
+$(".comments").html("<%= j(render 'public/comments/index', nail: @nail) %>");
+$("#comment_comment").val("");
