@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'confirms/index'
 # 顧客用
 devise_for :end_users,skip: [:passwords], controllers: {
   registrations: "public/registrations",
@@ -26,6 +27,9 @@ scope module: :public do
     resources :chats, only: [:index]
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'
+    member do
+      get :confirm
+    end
   end
   #get "/end_users/my_page" => "end_users#show"
   #get "/end_users" => "end_users#show"

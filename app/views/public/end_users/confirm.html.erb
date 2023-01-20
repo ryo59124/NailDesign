@@ -1,0 +1,13 @@
+<div class="container mt-5 text-center">
+  <h2>Drafts <i class="fas fa-quidditch"></i></h2>
+    <div class="row text-center">
+      <% @nails.each do |nail| %>
+        <div class='col-md-3 offset-md-1 mt-2'>
+          <%= link_to nail_path(nail.id) do %>
+            <%= image_tag nail.get_image, size:"250x250" %>
+          <% end %>
+          <p><%= nail.title %></p>
+        </div>
+      <% end %>
+    </div>
+</div>

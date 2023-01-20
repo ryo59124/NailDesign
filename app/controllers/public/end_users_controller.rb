@@ -6,7 +6,12 @@ class Public::EndUsersController < ApplicationController
   
   def show
     @end_user = EndUser.find(params[:id])
-    @nails = @end_user.nails.order(created_at: :desc)
+    @nails = @end_user.nails.published.order(created_at: :desc)
+  end
+  
+  def confirm
+    @end_user = EndUser.find(params[:id])
+    @nails = @end_user.nails.draft.order('created_at DESC')
   end
 
   def edit
@@ -48,5 +53,5 @@ class Public::EndUsersController < ApplicationController
   def set_user
     @end_user = EndUser.find(params[:id])
   end
-  
+
 end

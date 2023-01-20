@@ -1,4 +1,4 @@
-<div class='container mt-5'>
+<div class='container mt-4'>
   <div class='row'>
     <div class='col-md-3 text-center mx-auto'>
       <%= image_tag @nail.get_image, class: "mx-auto shadow-lg", size:"350x350" %>
@@ -11,6 +11,9 @@
       <div>　</div>
         <h4><%= @nail.title %></h4>
         <div class="my-4"><%= @nail.body %></div></br>
+        <% @nail_tags.each do |tag| %>
+          <i class="fas fa-tag"></i><%=tag.name%><%="(#{tag.nails.count})" %>
+        <% end %>
         <div class="mt-1"><%= @nail.created_at.strftime('%Y/%m/%d') %></div>
 
         <div class="favorite-btn">
