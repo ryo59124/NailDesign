@@ -1,0 +1,11 @@
+      <% @chats.each do |chat| %>
+        <% if chat.end_user_id == current_end_user.id %>
+          <div class="text-right">
+            <p class="btn rounded-pill", style="background-color:#f08080;"><%= chat.message %></p>
+          </div>
+        <% else %>
+          <div class="text-left">
+            <p class="btn rounded-pill", style="background-color:#ffb6c1;"><%= chat.message %></p>
+          </div>
+        <% end %>
+      <% end %>

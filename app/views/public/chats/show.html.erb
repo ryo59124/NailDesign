@@ -2,19 +2,11 @@
   <div class="row">
     <div class="col-7 mx-auto mt-4">
       <h2 class="text-center">CHAT with <%= @end_user.name %></h2>
-      <% @chats.each do |chat| %>
-        <% if chat.end_user_id == current_end_user.id %>
-          <div class="text-right">
-            <p class="btn rounded-pill", style="background-color:#f08080;"><%= chat.message %></p>
-          </div>
-        <% else %>
-          <div class="text-left">
-            <p class="btn", style="background-color:#ffb6c1;"><%= chat.message %></p>
-          </div>
-        <% end %>
-      <% end %>
+<div class="chat_index">
+    <%= render "public/chats/chat", chats: @chats %>
+</div>
 
-      <%= form_with model: @chat, data: {remote: true}, class:"text-center" do |f| %>
+      <%= form_with model: @chat, data: {remote: true}, class:"text-right" do |f| %>
         <%= f.text_field :message %>
         <%= f.submit "Send" %>
         <%= f.hidden_field :room_id %>

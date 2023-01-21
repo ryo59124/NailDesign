@@ -40,20 +40,20 @@ class Public::NailsController < ApplicationController
   end
 
   def update
+    
     @nail = Nail.find(params[:id])
     tag_list = params[:nail][:name].split(',')
     if @nail.update(nail_params)
-      if params[:nail][:status]== "公開"
-        @old_relations=NailTag.where(nail_id: @nail.id)
-        @old_relations.each do |relation|
-        relation.delete
-        end
+      if params[:nail][:status] == "published"
+  
         @nail.save_tag(tag_list)
         redirect_to nail_path(@nail), notice: "You have updated nail successfully."
       else
+
         redirect_to nails_path, notice: '下書きに登録しました。'
       end
     else
+     
       render :edit
     end
   end
