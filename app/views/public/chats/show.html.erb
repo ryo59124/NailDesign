@@ -2,15 +2,9 @@
   <div class="row">
     <div class="col-7 mx-auto mt-4">
       <h2 class="text-center">CHAT with <%= @end_user.name %></h2>
-<div class="chat_index">
-    <%= render "public/chats/chat", chats: @chats %>
-</div>
-
-      <%= form_with model: @chat, data: {remote: true}, class:"text-right" do |f| %>
-        <%= f.text_field :message %>
-        <%= f.submit "Send" %>
-        <%= f.hidden_field :room_id %>
-      <% end %>
+      <div class="chat_index">
+        <%= render "public/chats/chat", chats: @chats, chat: @chat %>
+      </div>
     </div>
   </div>
 </div>

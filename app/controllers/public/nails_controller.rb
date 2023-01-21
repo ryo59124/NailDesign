@@ -45,7 +45,11 @@ class Public::NailsController < ApplicationController
     tag_list = params[:nail][:name].split(',')
     if @nail.update(nail_params)
       if params[:nail][:status] == "published"
-  
+        @old_relations=NailTag.where(nail_id: @nail.id)
+        # それらを取り出し、消す。消し終わる
+        @old_relations.each do |relation|
+        relation.delete
+        end  
         @nail.save_tag(tag_list)
         redirect_to nail_path(@nail), notice: "You have updated nail successfully."
       else
