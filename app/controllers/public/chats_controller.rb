@@ -1,13 +1,7 @@
 class Public::ChatsController < ApplicationController
-  
+
   def index
-    @my_chats=current_end_user.chats
-    @chat_partners=EndUser.where.not(id:current_end_user.id)
-  end
- 
-  def create
-    @chat = current_end_user.chats.new(chat_params)
-    render :validater unless @chat.save
+    @chat_partners = EndUser.where.not(id: current_end_user.id)
   end
 
   def show
@@ -23,9 +17,13 @@ class Public::ChatsController < ApplicationController
     else
       @room = user_rooms.room
     end
-
     @chats = @room.chats
     @chat = Chat.new(room_id: @room.id)
+  end
+
+  def create
+    @chat = current_end_user.chats.new(chat_params)
+    @chat.save
   end
 
   private
@@ -33,5 +31,5 @@ class Public::ChatsController < ApplicationController
   def chat_params
     params.require(:chat).permit(:message, :room_id)
   end
-  
+
 end

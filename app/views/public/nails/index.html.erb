@@ -1,24 +1,51 @@
 <div class="card-list-container ml-3 mr-3">
   <div class="row">
-  <% @nails.each do |nail| %>
-  <div class="col-md-3 py-4">
-  <div class="card shadow-lg">
-    <%= link_to nail_path(nail.id) do %>
-      <%= image_tag nail.get_image, class:"card-img-top center-block", size:"350x350"%>
-    <% end %>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-12 card-title text-center">
-            <div><strong><%= nail.title %></strong></div>
-            <div class="nail_<%= nail.id %>">
-              <%= render "public/favorites/favorites", nail: nail %>
-            </div>
-            <div><i class="fas fa-user-edit"></i> <%= nail.end_user.name %></div>
+    <div class="col-md-12 text-center">
+      <h4><i class="fas fa-heart" style="color:#fa8070;"></i> Top4 <i class="fas fa-heart" style="color:#fa8070;"></i></h4>
+    </div>
+    <% @nails_top.each do |nail| %>
+    <div class="col-md-3 py-4">
+      <div class="card shadow-lg">
+      <%= link_to nail_path(nail.id) do %>
+        <%= image_tag nail.get_image, class:"card-img-top center-block", size:"350x350"%>
+      <% end %>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 card-title text-center">
+              <div><strong><%= nail.title %></strong></div>
+              <div class="nail_<%= nail.id %>">
+                <%= render "public/favorites/favorites", nail: nail %>
+              </div>
+              <div><i class="fas fa-user-edit"></i> <%= nail.end_user.name %></div>
+          </div>
         </div>
+      </div>
+      </div>
+    </div>
+    <% end %>
+    
+    <div class="col-md-12 mt-4 text-center">
+      <h4>最新投稿</h4>
+    </div>
+    <% @nails.each do |nail| %>
+    <div class="col-md-3 py-4">
+    <div class="card shadow-lg">
+      <%= link_to nail_path(nail.id) do %>
+        <%= image_tag nail.get_image, class:"card-img-top center-block", size:"350x350"%>
+      <% end %>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 card-title text-center">
+              <div><strong><%= nail.title %></strong></div>
+              <div class="nail_<%= nail.id %>">
+                <%= render "public/favorites/favorites", nail: nail %>
+              </div>
+              <div><i class="fas fa-user-edit"></i> <%= nail.end_user.name %></div>
+          </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <% end %>
+    <% end %>
   </div>
 </div>

@@ -20,7 +20,7 @@
         <div>　</div>
 
         <div class="mt-1">
-            <%= link_to admin_nail_path(@nail), method: :delete, class: "ml-2", style: "color:#8b0000;" do %>
+            <%= link_to admin_nail_path(@nail), method: :delete, data: { confirm: '本当に消しますか？'}, class: "ml-2", style: "color:#8b0000;" do %>
               <i class="fas fa-trash"></i> 投稿削除
             <% end %>
         </div>

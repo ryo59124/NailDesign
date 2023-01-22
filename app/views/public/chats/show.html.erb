@@ -1,10 +1,30 @@
 <div class="container">
+  <div class="row-10 btn rounded border-dark mt-4">
+    <%= link_to "Chat一覧に戻る", end_user_chats_path(current_end_user)%>
+  </div>
   <div class="row">
     <div class="col-7 mx-auto mt-4">
-      <h2 class="text-center">CHAT with <%= @end_user.name %></h2>
-      <div class="chat_index">
-        <%= render "public/chats/chat", chats: @chats, chat: @chat %>
-      </div>
+      <h2 class="text-center ">Chat With <%= @end_user.name %></h2>
+        <div class="message">
+          <% if @chats.present? %>
+            <% @chats.each do |chat| %>
+            <% if chat.end_user_id == current_end_user.id %>
+              <div class="text-right">
+                <p class="btn rounded-pill", style="background-color:#f08080;"><%= chat.message %></p>
+              </div>
+            <% else %>
+              <div class="text-left">
+                <p class="btn rounded-pill", style="background-color:#ffb6c1;"><%= chat.message %></p>
+              </div>
+            <% end %>
+            <% end %>
+          <% else %>
+            <div class="text-center">メッセージはまだありません</div>
+          <% end %>
+        </div>
+        <div class="chat">
+          <%= render "public/chats/chat_form", chat: @chat %>
+        </div>
     </div>
   </div>
 </div>

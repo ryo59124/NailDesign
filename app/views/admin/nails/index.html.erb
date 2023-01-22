@@ -16,7 +16,7 @@
           </div>
           <div><i class="fas fa-user-edit"></i> <%= nail.end_user.name %></div>
           <div>
-            <%= link_to admin_nail_path(nail), method: :delete do %>
+            <%= link_to admin_nail_path(nail), method: :delete, data: { confirm: '本当に消しますか？'} do %>
               <i class="fas fa-trash-alt"></i>
             <% end %>
           </div>

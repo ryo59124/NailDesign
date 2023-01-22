@@ -1,0 +1,5 @@
+<%= form_with model: chat, data: {remote: true}, class:"text-right" do |f| %>
+  <%= f.text_field :message %>
+  <%= f.submit "Send" %>
+  <%= f.hidden_field :room_id %>
+<% end %>

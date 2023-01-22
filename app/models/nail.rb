@@ -8,7 +8,9 @@ class Nail < ApplicationRecord
   has_many :nail_tags, dependent: :destroy
   has_many :tags, through: :nail_tags, dependent: :destroy
 
-  validates :body,presence:true
+  validates :title, presence: true
+  validates :body, presence:true
+  validates :image, presence: true
   
   def get_image
     unless image.attached?

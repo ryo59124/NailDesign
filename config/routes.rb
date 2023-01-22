@@ -31,10 +31,6 @@ scope module: :public do
       get :confirm
     end
   end
-  #get "/end_users/my_page" => "end_users#show"
-  #get "/end_users" => "end_users#show"
-  #get "/end_users/information/edit" => "end_users#edit"
-  #patch "end_users/information" => "end_users#update"
   get "/end_users/:id/unsubscribe" => "end_users#unsubscribe", as: "unsuscribe"
   patch "/end_user/withdraw" => "end_users#withdraw"
 

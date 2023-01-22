@@ -16,9 +16,8 @@
         <% end %>
         <div class="mt-1"><%= @nail.created_at.strftime('%Y/%m/%d') %></div>
 
-        <div class="favorite-btn">
+        <div class="nail_<%= @nail.id %>">
           <%= render "public/favorites/favorites", nail: @nail %>
-          <i class="far fa-comment-dots ml-2"></i><%= @nail.comments.count %>
         </div>
         <div>　</div>
 
@@ -47,7 +46,7 @@
             <%= link_to edit_nail_path(@nail), style: "color:#008080" do %>
               <i class="fas fa-edit"></i> 編集
             <% end %>
-            <%= link_to nail_path(@nail), method: :delete, class: "ml-2", style: "color:#8b0000;" do %>
+            <%= link_to nail_path(@nail), method: :delete, data: { confirm: '本当に消しますか？'}, class: "ml-2", style: "color:#8b0000;" do %>
               <i class="fas fa-trash"></i> 投稿削除
             <% end %>
           <% end %>

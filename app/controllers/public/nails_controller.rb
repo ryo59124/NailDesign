@@ -1,5 +1,6 @@
 class Public::NailsController < ApplicationController
   def index
+    @nails_top = Nail.published.joins(:favorites).group(:nail_id).order('count(favorites.nail_id) desc').limit(4)
     @nails = Nail.published.order(created_at: :desc)
     @tag_list=Tag.all
   end
@@ -13,9 +14,13 @@ class Public::NailsController < ApplicationController
     @nail.end_user_id = current_end_user.id
     # 受け取った値を,で区切って配列にする
     tag_list=params[:nail][:name].split(',')
+    @nail.save_tag(tag_list)
     if @nail.save
-      @nail.save_tag(tag_list)
-      redirect_to nails_path, notice:'投稿完了しました:)'
+      if params[:nail][:status] == "published"
+        redirect_to nails_path, notice:'投稿完了しました:)'
+      else
+        redirect_to confirm_end_user_path(current_end_user), notice: '下書きに登録しました!'
+      end
     else
       render :new
     end
@@ -40,7 +45,7 @@ class Public::NailsController < ApplicationController
   end
 
   def update
-    
+
     @nail = Nail.find(params[:id])
     tag_list = params[:nail][:name].split(',')
     if @nail.update(nail_params)
@@ -49,15 +54,14 @@ class Public::NailsController < ApplicationController
         # それらを取り出し、消す。消し終わる
         @old_relations.each do |relation|
         relation.delete
-        end  
+        end
         @nail.save_tag(tag_list)
-        redirect_to nail_path(@nail), notice: "You have updated nail successfully."
+        redirect_to nail_path(@nail), notice: '投稿完了しました:)'
       else
-
-        redirect_to nails_path, notice: '下書きに登録しました。'
+        redirect_to nail_path(@nail), notice: '下書きに登録しました!'
       end
     else
-     
+
       render :edit
     end
   end
