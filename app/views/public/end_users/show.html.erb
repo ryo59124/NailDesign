@@ -1,8 +1,9 @@
 <div class='container px-5 px-sm-0 mt-4'>
   <div class='row'>
-    <div class='col-lg-3 text-center'>
-      <%= image_tag @end_user.get_profile_image, size: '80x80', class: "rounded-circle" %></br>
-      
+    <div class='col-lg-3 text-center shadow'>
+      <div class='mt-3'>
+        <%= image_tag @end_user.get_profile_image, size: '80x80', class: "rounded-circle" %></br>
+      </div>
       <table class='table mt-3'>
         <tr>
 	        <td>name</td>
@@ -37,7 +38,7 @@
       
       <% if current_end_user.name != "Guest" %>
       <% if @end_user != current_end_user %>
-      <div>
+      <div class="mb-3">
         <% if current_end_user.following?(@end_user) %>
           <%= link_to end_user_relationships_path(@end_user.id), method: :delete, class: 'btn border-dark text-reset' do %>
               <i class="fas fa-user-minus"></i>

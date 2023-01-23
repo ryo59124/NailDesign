@@ -51,17 +51,23 @@
               </li>
               <li>
                 <% if current_end_user.name != "Guest" %>
-                  <%= link_to "Favorites", end_user_favorites_path(current_end_user), class: 'nav-link border-bottom', style:"color:#c71585;" %>
+                  <%= link_to end_user_favorites_path(current_end_user), class: 'nav-link border-bottom', style:"color:#c71585;" do %>
+                    <i class="fas fa-heart"></i>
+                  <% end %>
                 <% end %>
               </li>
               <li>
                 <% if current_end_user.name != "Guest" %>
-                  <%= link_to "Chats", end_user_chats_path(current_end_user), class: 'nav-link border-bottom', style:"color:#6a5acd;" %>
+                  <%= link_to end_user_chats_path(current_end_user), class: 'nav-link border-bottom', style:"color:#6a5acd;" do %>
+                    <i class="fas fa-comments"></i>
+                  <% end %>
                 <% end %>
               </li>
               <li>
                 <% if current_end_user.name != "Guest" %>
-                  <%= link_to "Users　", end_users_path, class: 'nav-link border-bottom', style:"color:#8b008b;" %>
+                  <%= link_to end_users_path, class: 'nav-link border-bottom', style:"color:#8b008b;" do %>
+                    <i class="fas fa-child"></i><i class="fas fa-child"></i>
+                  <% end %>
                 <% end %>
               </li>
 

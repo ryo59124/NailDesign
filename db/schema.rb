@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_20_150649) do
+ActiveRecord::Schema.define(version: 2023_01_20_124942) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -68,13 +68,6 @@ ActiveRecord::Schema.define(version: 2023_01_20_150649) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "confirms", force: :cascade do |t|
-    t.integer "end_user_id"
-    t.integer "nail_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "end_users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -102,6 +95,7 @@ ActiveRecord::Schema.define(version: 2023_01_20_150649) do
     t.integer "tag_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["nail_id", "tag_id"], name: "index_nail_tags_on_nail_id_and_tag_id", unique: true
     t.index ["nail_id"], name: "index_nail_tags_on_nail_id"
     t.index ["tag_id"], name: "index_nail_tags_on_tag_id"
   end
@@ -110,9 +104,9 @@ ActiveRecord::Schema.define(version: 2023_01_20_150649) do
     t.integer "end_user_id"
     t.string "title"
     t.text "body"
+    t.integer "status", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "status", default: 0, null: false
   end
 
   create_table "relationships", force: :cascade do |t|
