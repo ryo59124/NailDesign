@@ -1,16 +1,17 @@
 <div class='container mt-4'>
   <div class='row'>
-    <div class='col-md-3 text-center mx-auto'>
+    <div class='col-xxl-3 text-center mx-auto'>
       <%= image_tag @nail.get_image, class: "mx-auto shadow-lg", size:"350x350" %>
     </div>
-    <div class="col-md-3 ml-5 mt-3 text-align">
+
+    <div class="col-xxl-4 mt-3 pt-2 pl-5">
       <div>
-          <%= image_tag @nail.end_user.get_profile_image, class: "rounded-circle", size:"50x50" %>
+          <%= image_tag @nail.end_user.get_profile_image, class: "rounded-circle border", size:"70x70" %>
           <strong>　<%= link_to @nail.end_user.name, end_user_path(@nail.end_user) %></strong>
       </div>
       <div>　</div>
         <h4><%= @nail.title %></h4>
-        <div class="my-4"><%= @nail.body %></div></br>
+        <div class=""><%= @nail.body %></div></br>
         <% @nail_tags.each do |tag| %>
           <i class="fas fa-tag"></i><%=tag.name%><%="(#{tag.nails.count})" %>
         <% end %>
@@ -51,11 +52,10 @@
             <% end %>
           <% end %>
         </div>
-
     </div>
-    <div class="col-md-4 pl-5 mx-auto text-align">
-      <div>　</div>
-      <div>
+
+    <div class="col-xxl-4 mt-5 pl-5 pr-5">
+      <div class="">
         <% @nail.comments.each do |comment| %>
           <p>
            <i class="fas fa-comment-dots"></i> <%= comment.comment %> ( <%= link_to comment.end_user.name, end_user_path(comment.end_user) %>・<%= comment.created_at.strftime('%y/%m/%d') %>)
@@ -65,14 +65,13 @@
               <% end %>
             <% end %>
           </p>
-            <%#= image_tag comment.end_user.get_profile_image, class: "rounded-circle", size:"20x20" %>
         <% end %>
       </div>
       <div>　</div>
       <div>
         <% if current_end_user.name != "Guest" %>
         <%= form_with model: [@nail, @comment] do |f| %>
-          <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+          <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %></br>
           <%= f.submit "送信する" %>
         <% end %>
         <% end %>

@@ -1,14 +1,14 @@
-<div class="card-list-container ml-3 mr-3">
+<div class="card-list-container ml-2 mr-2">
   <div class="row">
-    <div class="col-md-12 text-center">
-      <h4><i class="fas fa-heart" style="color:#fa8070;"></i> Top4 <i class="fas fa-heart" style="color:#fa8070;"></i></h4>
-    </div>
-    <% @nails_top.each do |nail| %>
-    <div class="col-md-3 py-4">
-      <div class="card shadow-lg">
-      <%= link_to nail_path(nail.id) do %>
-        <%= image_tag nail.get_image, class:"card-img-top center-block", size:"350x350"%>
-      <% end %>
+    <div class='col-lg-3 text-center' style="background-color:#fff0f5;">
+      <div class="mt-3">
+        <h4><i class="far fa-heart" style="color:#fa8070;"></i> Top3 <i class="far fa-heart" style="color:#fa8070;"></i></h4>
+      </div>
+      <% @nails_top.each do |nail| %>
+      <div class='card mt-2 ml-3 mr-2 mb-4'>
+        <%= link_to nail_path(nail.id) do %>
+          <%= image_tag nail.get_image, class:"card-img-top center-block", size:"350x350"%>
+        <% end %>
       <div class="card-body">
         <div class="row">
           <div class="col-12 card-title text-center">
@@ -21,31 +21,41 @@
         </div>
       </div>
       </div>
-    </div>
-    <% end %>
-    
-    <div class="col-md-12 mt-4 text-center">
-      <h4>最新投稿</h4>
-    </div>
-    <% @nails.each do |nail| %>
-    <div class="col-md-3 py-4">
-    <div class="card shadow-lg">
-      <%= link_to nail_path(nail.id) do %>
-        <%= image_tag nail.get_image, class:"card-img-top center-block", size:"350x350"%>
       <% end %>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-12 card-title text-center">
-              <div><strong><%= nail.title %></strong></div>
-              <div class="nail_<%= nail.id %>">
-                <%= render "public/favorites/favorites", nail: nail %>
-              </div>
-              <div><i class="fas fa-user-edit"></i> <%= nail.end_user.name %></div>
+    </div>
+
+    <div class="col-lg-9">
+      <div class="mt-2 ml-2 text-left">
+        <%= form_tag nails_path, method: :get, class: 'boards__searchForm' do %>
+          <%= select_tag :tag_id, options_from_collection_for_select( Tag.all, :id, :name, params[:tag_id]),{ prompt: 'タグで絞り込み検索', onchange: 'submit(this.form);'} %>
+        <% end %>
+        <h4 class="mt-2">最新投稿</h4>
+      </div>
+
+      <div class="row ml-2 mr-2">
+        <% @nails.each do |nail| %>
+        <div class="col-lg-4">
+        <div class="card shadow-lg mt-2">
+          <div class="card-top">
+            <%= link_to nail_path(nail.id) do %>
+              <%= image_tag nail.get_image, class:"card-img-top center-block", size:"350x350"%>
+            <% end %>
           </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 card-title text-center">
+                <div><strong><%= nail.title %></strong></div>
+                <div class="nail_<%= nail.id %>">
+                  <%= render "public/favorites/favorites", nail: nail %>
+                </div>
+                <div><i class="fas fa-user-edit"></i> <%= nail.end_user.name %></div>
+              </div>
+            </div>
           </div>
         </div>
+        </div>
+        <% end %>
       </div>
     </div>
-    <% end %>
   </div>
 </div>

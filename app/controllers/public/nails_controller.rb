@@ -1,8 +1,8 @@
 class Public::NailsController < ApplicationController
   def index
-    @nails_top = Nail.published.joins(:favorites).group(:nail_id).order('count(favorites.nail_id) desc').limit(4)
+    @nails_top = Nail.published.joins(:favorites).group(:nail_id).order('count(favorites.nail_id) desc').limit(3)
     @nails = Nail.published.order(created_at: :desc)
-    @tag_list=Tag.all
+    @nails = params[:tag_id].present? ? Tag.find(params[:tag_id]).nails : Nail.all
   end
 
   def new
