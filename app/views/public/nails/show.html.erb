@@ -1,81 +1,92 @@
 <div class='container mt-4'>
   <div class='row'>
+    <!--投稿画像-->
     <div class='col-xxl-3 text-center mx-auto'>
       <%= image_tag @nail.get_image, class: "mx-auto shadow-lg", size:"350x350" %>
     </div>
 
-    <div class="col-xxl-4 mt-3 pt-2 pl-5">
+    <!--投稿情報-->
+    <div class="col-md-4 mt-3 pt-2 pl-5 pl-5">
+      
       <div>
-          <%= image_tag @nail.end_user.get_profile_image, class: "rounded-circle border", size:"70x70" %>
-          <strong>　<%= link_to @nail.end_user.name, end_user_path(@nail.end_user) %></strong>
+        <%= image_tag @nail.end_user.get_profile_image, class: "rounded-circle border", size:"70x70" %>
+        <strong>　<%= link_to @nail.end_user.name, end_user_path(@nail.end_user) %></strong>
       </div>
       <div>　</div>
-        <h4><%= @nail.title %></h4>
-        <div class=""><%= @nail.body %></div></br>
+      <h4><%= @nail.title %></h4>
+      <h6><%= @nail.body %></h6></br>
+      <h6>
         <% @nail_tags.each do |tag| %>
-          <i class="fas fa-tag"></i><%=tag.name%><%="(#{tag.nails.count})" %>
+          <i class="fas fa-tag"></i><%=tag.name%><%="(#{tag.nails.count})" %></br>
         <% end %>
-        <div class="mt-1"><%= @nail.created_at.strftime('%Y/%m/%d') %></div>
+      </h6>
+      <div class="mt-1"><%= @nail.created_at.strftime('%Y/%m/%d') %></div>
 
-        <div class="nail_<%= @nail.id %>">
-          <%= render "public/favorites/favorites", nail: @nail %>
-        </div>
-        <div>　</div>
-
-        <% if current_end_user.name != "Guest" %>
-        <% if @end_user != current_end_user %>
-        <div>
-          <% if current_end_user.following?(@end_user) %>
-            <%= link_to end_user_relationships_path(@end_user.id), method: :delete, class: 'btn border-dark text-reset' do %>
-              <i class="fas fa-user-minus"></i>
-            <% end %>
-          <% else %>
-            <%= link_to end_user_relationships_path(@end_user.id), method: :post, class: 'btn border-dark text-success' do %>
-              <i class="fas fa-user-plus"></i>
-            <% end %>
-          <% end %>
-
-          <%= link_to chat_path(@end_user.id), class: "btn border-dark text-reset" do %>
-            <i class="fas fa-comments"></i> CHAT
-          <% end %>
-        </div>
-        <% end %>
-        <% end %>
-
-        <div class="mt-1">
-          <% if @nail.end_user == current_end_user %>
-            <%= link_to edit_nail_path(@nail), style: "color:#008080" do %>
-              <i class="fas fa-edit"></i> 編集
-            <% end %>
-            <%= link_to nail_path(@nail), method: :delete, data: { confirm: '本当に消しますか？'}, class: "ml-2", style: "color:#8b0000;" do %>
-              <i class="fas fa-trash"></i> 投稿削除
-            <% end %>
-          <% end %>
-        </div>
-    </div>
-
-    <div class="col-xxl-4 mt-5 pl-5 pr-5">
-      <div class="">
-        <% @nail.comments.each do |comment| %>
-          <p>
-           <i class="fas fa-comment-dots"></i> <%= comment.comment %> ( <%= link_to comment.end_user.name, end_user_path(comment.end_user) %>・<%= comment.created_at.strftime('%y/%m/%d') %>)
-            <% if comment.end_user == current_end_user %>
-              <%= link_to nail_comment_path(comment.nail, comment), method: :delete, style: "color:#8b0000;" do %>
-                <i class="fas fa-trash-alt"></i>
-              <% end %>
-            <% end %>
-          </p>
-        <% end %>
+      <!--お気に入り・コメント-->
+      <div class="nail_<%= @nail.id %>">
+        <%= render "public/favorites/favorites", nail: @nail %>
       </div>
       <div>　</div>
+      <!--ゲスト、投稿者でなければ、フォロー・チャット-->
+      <% if current_end_user.name != "Guest" %>
+      <% if @end_user != current_end_user %>
+      <div>
+        
+        <% if current_end_user.following?(@end_user) %>
+          <%= link_to end_user_relationships_path(@end_user.id), method: :delete, class: 'btn border-dark text-reset' do %>
+            <i class="fas fa-user-minus"></i>
+          <% end %>
+        <% else %>
+          <%= link_to end_user_relationships_path(@end_user.id), method: :post, class: 'btn border-dark text-success' do %>
+            <i class="fas fa-user-plus"></i>
+          <% end %>
+        <% end %>
+
+        <%= link_to chat_path(@end_user.id), class: "btn border-dark text-reset" do %>
+          <i class="fas fa-comments"></i> CHAT
+        <% end %>
+        
+      </div>
+      <% end %>
+      <% end %>
+
+      <!--投稿者なら編集可-->
+      <div class="mt-1">
+        <% if @nail.end_user == current_end_user %>
+          <%= link_to edit_nail_path(@nail), style: "color:#008080" do %>
+            <i class="fas fa-edit"></i> 編集
+          <% end %>
+          <%= link_to nail_path(@nail), method: :delete, data: { confirm: '本当に消しますか？'}, class: "ml-2", style: "color:#8b0000;" do %>
+            <i class="fas fa-trash"></i> 投稿削除
+          <% end %>
+        <% end %>
+      </div>
+      
+    </div>
+
+    <!--コメント投稿-->
+    <div class="col-md-4 mt-5 pl-5 pr-5">
+      <% @nail.comments.each do |comment| %>
+        <p>
+          <i class="fas fa-comment-dots"></i> <%= comment.comment %> ( <%= link_to comment.end_user.name, end_user_path(comment.end_user) %>・<%= comment.created_at.strftime('%y/%m/%d') %>)
+          <% if comment.end_user == current_end_user %>
+            <%= link_to nail_comment_path(comment.nail, comment), method: :delete, style: "color:#8b0000;" do %>
+              <i class="fas fa-trash-alt"></i>
+            <% end %>
+          <% end %>
+        </p>
+      <% end %>
+      <div>　</div>
+      <!--ゲスト以外、投稿フォーム-->
       <div>
         <% if current_end_user.name != "Guest" %>
-        <%= form_with model: [@nail, @comment] do |f| %>
-          <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %></br>
-          <%= f.submit "送信する" %>
-        <% end %>
+          <%= form_with model: [@nail, @comment] do |f| %>
+            <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %></br>
+            <%= f.submit "送信" %>
+          <% end %>
         <% end %>
       </div>
     </div>
+    
   </div>
 </div>

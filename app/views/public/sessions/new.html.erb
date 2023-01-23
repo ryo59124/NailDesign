@@ -1,28 +1,28 @@
 <div class = "container">
-<div class="row mt-4 text-center">
-  <div class="col"></br>
-    <h3>会員の方はこちら</h3>
-    <%= form_with model: @end_user, url: end_user_session_path do |f| %>
-      <div class="form-group text-center col-10">
-        <%= f.label :"メールアドレス", class: "col-3 control-label" %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "col-4 form-control-static" %>
-      </div>
-      <div class="form-group text-center col-10">
-        <%= f.label :"パスワード", class: "col-3 control-label" %>
-        <%= f.password_field :password, autocomplete: "current-password", class: "col-4 form-control-static" %>
-      </div>
-      <div class="actions">
-        <%= f.submit "Log in !", class:"btn text-reset border-dark", style:"background-color:#ffc0cd;"%>
-      </div></br>
+  <div class="row mt-4 text-center">
+    <div class="col">
+      <h3>会員の方はこちら</h3>
+      <%= form_with model: @end_user, url: end_user_session_path do |f| %>
+        <div class="form-group text-center col-10">
+          <%= f.label :"メールアドレス", class: "col-3 control-label" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "col-4 form-control-static" %>
+        </div>
+        <div class="form-group text-center col-10">
+          <%= f.label :"パスワード", class: "col-3 control-label" %>
+          <%= f.password_field :password, autocomplete: "current-password", class: "col-4 form-control-static" %>
+        </div>
+        <div class="actions">
+          <%= f.submit "Log in !", class:"btn text-reset border-dark", style:"background-color:#ffc0cd;"%>
+        </div></br>
       <% end %>
-    <div class="col-xs-3 mt-5">
-      <h4>登録がお済みではない方</h4>
-      <p class="new-link mt-4">
-        <%= link_to "こちら", new_registration_path(resource_name), data: {"turbolinks" => false}, class: "btn-link" %>から新規登録をお願いいたします
-      </p>
-        <%= link_to "Guest", guests_guest_sign_in_path, method: :post, class: "btn-link" %>としてご覧いただくことも可能です<br>
-       ※ コメントやお気に入り登録には会員登録が必要です
+      <div class="col-xs-3 mt-5">
+        <h4>登録がお済みではない方</h4>
+          <p class="new-link mt-4">
+            <%= link_to "こちら", new_registration_path(resource_name), data: {"turbolinks" => false}, class: "btn-link" %>から新規登録をお願いいたします
+          </p>
+          <%= link_to "Guest", guests_guest_sign_in_path, method: :post, class: "btn-link" %>としてご覧いただくことも可能です<br>
+           ※ コメントやお気に入り登録には会員登録が必要です
+      </div>
     </div>
   </div>
-</div>
 </div>

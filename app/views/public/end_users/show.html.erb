@@ -1,9 +1,10 @@
 <div class='container px-5 px-sm-0 mt-4'>
   <div class='row'>
-    <div class='col-lg-3 text-center shadow'>
+    <!--プロフィール-->
+    <div class='col-lg-3 text-center shadow mt-4 mb-5' style="background-color:#fffafa;">
       <div class='mt-3'>
-        <%= image_tag @end_user.get_profile_image, size: '80x80', class: "rounded-circle" %></br>
-      </div>
+        <%= image_tag @end_user.get_profile_image, size: '80x80', class: "rounded-circle" %>
+      </div></br>
       <table class='table mt-3'>
         <tr>
 	        <td>name</td>
@@ -14,7 +15,7 @@
 	        <td style="font-size:11px;"><%= @end_user.introduction %></td>
         </tr>
       </table>
-      
+      <!--本人なら、編集・下書き一覧ボタン-->
       <div>
         <% if @end_user == current_end_user %>
           <%= link_to edit_end_user_path(@end_user), class: "btn btn-outline-secondary" do %>
@@ -25,50 +26,52 @@
           <% end %>
         <% end %>
       </div></br>
-      
+
       <table class='table mt-3'>
         <tr>
           <td>follows</td>
           <td><%= link_to @end_user.followings.count, end_user_followings_path(@end_user) %></td>
         </tr>
+        <tr>
           <td>followers</td>
           <td><%= link_to @end_user.followers.count, end_user_followers_path(@end_user) %></td>
         </tr>
       </table>
-      
+      <!--ゲスト・本人以外、フォロー・チャット-->
       <% if current_end_user.name != "Guest" %>
       <% if @end_user != current_end_user %>
       <div class="mb-3">
         <% if current_end_user.following?(@end_user) %>
           <%= link_to end_user_relationships_path(@end_user.id), method: :delete, class: 'btn border-dark text-reset' do %>
-              <i class="fas fa-user-minus"></i>
+            <i class="fas fa-user-minus"></i>
           <% end %>
         <% else %>
           <%= link_to end_user_relationships_path(@end_user.id), method: :post, class: 'btn border-dark text-success' do %>
-              <i class="fas fa-user-plus"></i>
-            <% end %>
-        <% end %>
-      
-        <%= link_to chat_path(@end_user.id), class: "btn border-dark text-reset" do %>
-            <i class="fas fa-comments"></i> CHAT
+            <i class="fas fa-user-plus"></i>
           <% end %>
+        <% end %>
+
+        <%= link_to chat_path(@end_user.id), class: "btn border-dark text-reset" do %>
+          <i class="fas fa-comments"></i> CHAT
+        <% end %>
       </div>
       <% end %>
       <% end %>
     </div>
 
-<!-- ユーザーの投稿一覧 -->
-    <div class="col-9">
-      <div class="row">
+    <!-- ユーザーの投稿一覧 -->
+    <div class="col-lg-9">
+      <div class="row text-center ml-2 mr-2">
         <% @nails.each do |nail| %>
-        <div class='col-md-3 offset-md-1 mt-2'>
-          <%= link_to nail_path(nail.id) do %>
-            <%= image_tag nail.get_image, size:"250x250" %>
-          <% end %>
-          <p><%= nail.title %></p>
-        </div>
+          <div class='col-lg-4 mt-3 pt-2 pl-2 pr-2 border'>
+            <%= link_to nail_path(nail.id) do %>
+              <%= image_tag nail.get_image, size:"250x250" %>
+            <% end %>
+            <p><%= nail.title %></p>
+          </div>
         <% end %>
       </div>
     </div>
+
   </div>
 </div>

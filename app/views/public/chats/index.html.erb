@@ -3,9 +3,6 @@
     <h2>Chat Rooms <i class="fas fa-comments"></i></h2>
     <table class="table text-reset mt-2">
       <tbody>
-        <tr>
-          <td></td>
-        </tr>
         <% @chat_partners.each do |chat_partner| %>
         <% if chat_partner.is_deleted == false %>
         <% if chat_partner.name != "Guest" && chat_partner.name != "guestuser" %>
@@ -17,7 +14,6 @@
         <% end %>
         <% end %>
         <% end %>
-        
       </tbody>
     </table>
   </div>

@@ -1,48 +1,49 @@
 <div class="container text-center mt-4">
   <h2>Users <i class="fas fa-child"></i><i class="fas fa-child"></i></h2>
   <div class="col-7 mx-auto">
-  <table class='table text-reset text-center mt-2'>
-  <thead>
-    <tr>
-      <th></th>
-      <th>Name</th>
-      <th>Follow</th>
-      <th>Chat</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @end_users.each do |end_user| %>
-    <% if end_user.is_deleted == false %>
-    <% if end_user.name != "Guest" && end_user.name != "guestuser" %>
-      <tr>
-        <td><%= image_tag end_user.get_profile_image, size: '50x50' %></td>
-        <td><%= link_to end_user.name, end_user, class: "font-weight-bold text-reset" %></td>
-        <% if end_user != current_end_user %>
-        <% if current_end_user.name != "Guest" %>
-        <td>
-          <% if current_end_user.following?(end_user) %>
-            <%= link_to end_user_relationships_path(end_user.id), method: :delete, class: 'text-reset' do %>
-              <i class="fas fa-user-minus"></i>
+    <table class='table text-reset text-center mt-2'>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Follow</th>
+          <th>Chat</th>
+        </tr>
+      </thead>
+      <tbody><!--退会していない、ゲスト以外-->
+        <% @end_users.each do |end_user| %>
+          <% if end_user.is_deleted == false %>
+          <% if end_user.name != "Guest" && end_user.name != "guestuser" %>
+          <tr>
+            <td><%= image_tag end_user.get_profile_image, size: '50x50' %></td>
+            <td><%= link_to end_user.name, end_user, class: "font-weight-bold text-reset" %></td>
+            
+            <!--フォロー・チャット-->
+            <% if end_user != current_end_user %>
+            <% if current_end_user.name != "Guest" %>
+              <td>
+              <% if current_end_user.following?(end_user) %>
+                <%= link_to end_user_relationships_path(end_user.id), method: :delete, class: 'text-reset' do %>
+                  <i class="fas fa-user-minus"></i>
+                <% end %>
+              <% else %>
+                <%= link_to end_user_relationships_path(end_user.id), method: :post, class: 'text-success' do %>
+                  <i class="fas fa-user-plus"></i>
+                <% end %>
+              <% end %>
+              </td>
+              <td>
+                <%= link_to chat_path(end_user.id), class: "text-reset" do %>
+                  <i class="fas fa-comments"></i> CHAT
+                <% end %>
+              </td>
             <% end %>
-          <% else %>
-            <%= link_to end_user_relationships_path(end_user.id), method: :post, class: 'text-success' do %>
-              <i class="fas fa-user-plus"></i>
             <% end %>
+          </tr>
           <% end %>
-        </td>
-        <td>
-          <%= link_to chat_path(end_user.id), class: "text-reset" do %>
-            <i class="fas fa-comments"></i> CHAT
           <% end %>
-        </td>
         <% end %>
-        <% end %>
-        </td>
-      </tr>
-    <% end %>
-    <% end %>
-    <% end %>
-  </tbody>
-  </table>
+      </tbody>
+    </table>
   </div>
 </div>

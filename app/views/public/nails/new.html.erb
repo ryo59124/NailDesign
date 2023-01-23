@@ -3,35 +3,35 @@
     <div class="col-lg-4 mt-4 px-5 px-sm-0 mx-auto">
       <h2>New Nail Post</h2>
       <%= form_with model: @nail do |f| %>
-      <%= render 'layouts/errors', obj: @nail %>
-      <h5 class="form-group">
-        <%= f.label :Title %>
-        <%= f.text_field :title, class: "form-control title" %>
-      </h5>
+        <%= render 'layouts/errors', obj: @nail %>
+        <h5 class="form-group">
+          <%= f.label :Title %>
+          <%= f.text_field :title, class: "form-control title" %>
+        </h5>
 
-      <h5 class="form-group">
-        <%= f.label :Image %>
-        <%= f.file_field :image, class: "form-control-file image", accept: 'image/*' %>
-      </h5>
+        <h5 class="form-group">
+          <%= f.label :Image %>
+          <%= f.file_field :image, class: "form-control-file image", accept: 'image/*' %>
+        </h5>
 
-      <h5 class="form-group">
-        <%= f.label :Body %>
-        <%= f.text_area :body, class: "form-control body" %>
-      </h5>
+        <h5 class="form-group">
+          <%= f.label :Body %>
+          <%= f.text_area :body, class: "form-control body" %>
+        </h5>
 
-      <div class='form-group'>
-        <div class="field">
-          <%= f.label "tag(,で区切ると複数のタグを登録可)" %>
-          <%= f.text_field :name, value: @tag_list, class:"form-control"%>
+        <div class='form-group'>
+          <div class="field">
+            <%= f.label "tag(,で区切ると複数のタグを登録可)" %>
+            <%= f.text_field :name, value: @tag_list, class:"form-control"%>
+          </div>
         </div>
-      </div>
 
-      <div class="form-group">
-        <%= f.label"公開範囲を選択" %><br>
-        <%= f.select :status, [["公開", "published"], ["下書き", "draft"]],required: true, class:"form-control" %>
-      </div>
+        <div class="form-group">
+          <%= f.label"公開範囲を選択" %><br>
+          <%= f.select :status, [["公開", "published"], ["下書き", "draft"]],required: true, class:"form-control" %>
+        </div>
 
-      <%= f.submit 'Post!!', class:"btn text-reset border-dark", style:"background-color:#ffc0cd;" %>
+        <%= f.submit 'Post!!', class:"btn text-reset border-dark", style:"background-color:#ffc0cd;" %>
       <% end %>
     </div>
   </div>

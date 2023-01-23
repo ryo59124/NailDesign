@@ -1,42 +1,42 @@
 <div class = "container">
-<div class="row mt-3 text-center">
-  <div class="col"></br>
-    <h3>新規登録</h3>
-    <%= form_with(model: @end_user, url: registration_path(resource_name) )do |f| %>
-    <%= render "public/shared/error_messages", resource: resource %>
-    
-      <div class="form-group text-center col-10">
-        <%= f.label :"名前", class: "col-3 control-label" %>
-        <%= f.text_field :name, autofocus: true, class: "col-4 form-control-static name" %>
-      </div>
+  <div class="row mt-3 text-center">
+    <div class="col">
+      <h3>新規登録</h3>
+      <%= form_with(model: @end_user, url: registration_path(resource_name) )do |f| %>
+        <%= render "public/shared/error_messages", resource: resource %>
 
-      <div class="form-group text-center col-10">
-        <%= f.label :"メールアドレス", class: "col-3 control-label" %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "col-4 form-control-static" %>
-      </div>
+        <div class="form-group text-center col-10">
+          <%= f.label :"名前", class: "col-3 control-label" %>
+          <%= f.text_field :name, autofocus: true, class: "col-4 form-control-static name" %>
+        </div>
 
-      <div class="form-group text-center col-10">
-        <%= f.label :"パスワード(6文字以上)", class: "col-3 control-label" %>
-        <%= f.password_field :password, autocomplete: "new-password", class: "col-4 form-control-static" %>
-      </div>
-      <div class="form-group text-center col-10">
-        <%= f.label :"パスワード(確認用)", class: "col-3 control-label" %>
-        <%= f.password_field :password, autocomplete: "new-password", class: "col-4 form-control-static" %>
-      </div>
-      
-      <div class="actions">
-        <%= f.submit "Sign up !", class:"btn text-reset border-dark", style:"background-color:#ffc0cd;"%>
-      </div>
+        <div class="form-group text-center col-10">
+          <%= f.label :"メールアドレス", class: "col-3 control-label" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "col-4 form-control-static" %>
+        </div>
+
+        <div class="form-group text-center col-10">
+          <%= f.label :"パスワード(6文字以上)", class: "col-3 control-label" %>
+          <%= f.password_field :password, autocomplete: "new-password", class: "col-4 form-control-static" %>
+        </div>
+        <div class="form-group text-center col-10">
+          <%= f.label :"パスワード(確認用)", class: "col-3 control-label" %>
+          <%= f.password_field :password, autocomplete: "new-password", class: "col-4 form-control-static" %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Sign up !", class:"btn text-reset border-dark", style:"background-color:#ffc0cd;"%>
+        </div>
       <% end %>
 
-    <div class="col-xs-3 mt-3">
-      <h5>会員登録がお済みの方</h5>
-      <p class="new-link mt-2">
-        <%= link_to "こちら", new_session_path(resource_name), data: {"turbolinks" => false}, class: "btn-link" %>からログインできます
-      </p>
+      <div class="col-xs-3 mt-3">
+        <h5>会員登録がお済みの方</h5>
+        <p class="new-link mt-2">
+          <%= link_to "こちら", new_session_path(resource_name), data: {"turbolinks" => false}, class: "btn-link" %>からログインできます
+        </p>
         <%= link_to "Guest", guests_guest_sign_in_path, method: :post, class: "btn-link" %>としてご覧いただくことも可能です<br>
-       ※ コメントやお気に入り登録には会員登録が必要です
+         ※ コメントやお気に入り登録には会員登録が必要です
+      </div>
     </div>
   </div>
-</div>
 </div>
