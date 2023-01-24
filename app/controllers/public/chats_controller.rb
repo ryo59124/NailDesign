@@ -1,4 +1,5 @@
 class Public::ChatsController < ApplicationController
+  before_action :is_matching_login_user
 
   def index
     @chat_partners = EndUser.where.not(id: current_end_user.id)
@@ -30,6 +31,13 @@ class Public::ChatsController < ApplicationController
 
   def chat_params
     params.require(:chat).permit(:message, :room_id)
+  end
+  
+  def is_matching_login_user
+    end_user_id = params[:id].to_i
+    unless end_user_id == current_end_user.id
+      redirect_to nails_path
+    end
   end
 
 end

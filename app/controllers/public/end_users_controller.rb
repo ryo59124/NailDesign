@@ -1,12 +1,14 @@
 class Public::EndUsersController < ApplicationController
   before_action :set_user, only: [:favorites]
+  before_action :is_matching_login_user, only: [:edit, :update, :confirm, :withdraw, :unsubscribe]
+  
   def index
     @end_users = EndUser.all
   end
   
   def show
     @end_user = EndUser.find(params[:id])
-    @nails = @end_user.nails.published.order(created_at: :desc)
+    @nails = @end_user.nails.published.order(created_at: :desc).page(params[:page]).per(6)
   end
   
   def confirm
@@ -52,6 +54,13 @@ class Public::EndUsersController < ApplicationController
   
   def set_user
     @end_user = EndUser.find(params[:id])
+  end
+  
+  def is_matching_login_user
+    end_user_id = params[:id].to_i
+    unless end_user_id == current_end_user.id
+      redirect_to nails_path
+    end
   end
 
 end

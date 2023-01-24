@@ -1,6 +1,5 @@
 class Public::CommentsController < ApplicationController
-  before_action :authenticate_end_user!
-  
+
   def create
     nail = Nail.find(params[:nail_id])
     comment = current_end_user.comments.new(comment_params)

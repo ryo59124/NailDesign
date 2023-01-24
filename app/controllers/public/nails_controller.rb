@@ -1,7 +1,9 @@
 class Public::NailsController < ApplicationController
+  before_action :is_matching_login_user, only: [:edit, :update, :destroy]
+  
   def index
     @nails_top = Nail.published.joins(:favorites).group(:nail_id).order('count(favorites.nail_id) desc').limit(3)
-    @nails = params[:tag_id].present? ? Tag.find(params[:tag_id]).nails : Nail.published.order(created_at: :desc)
+    @nails = params[:tag_id].present? ? Tag.find(params[:tag_id]).nails : Nail.published.order(created_at: :desc).page(params[:page]).per(6)
   end
 
   def new
@@ -16,9 +18,9 @@ class Public::NailsController < ApplicationController
     @nail.save_tag(tag_list)
     if @nail.save
       if params[:nail][:status] == "published"
-        redirect_to nails_path, notice:'投稿完了しました:)'
+        redirect_to nails_path, notice:'投稿を公開しました！'
       else
-        redirect_to confirm_end_user_path(current_end_user), notice: '下書きに登録しました!'
+        redirect_to confirm_end_user_path(current_end_user), notice: 'Draft Nailsに保存しました！'
       end
     else
       render :new
@@ -28,8 +30,11 @@ class Public::NailsController < ApplicationController
   def show
     @nail = Nail.find(params[:id])
     @comment = Comment.new
-    @end_user = @nail.end_user
+    @edit_user = @nail.end_user
     @nail_tags = @nail.tags
+    if @nail.status == "draft" && current_end_user != @edit_user
+      redirect_to nails_path
+    end
   end
 
   def edit
@@ -55,9 +60,9 @@ class Public::NailsController < ApplicationController
         relation.delete
         end
         @nail.save_tag(tag_list)
-        redirect_to nail_path(@nail), notice: '投稿完了しました:)'
+        redirect_to nail_path(@nail), notice: '投稿を公開しました！'
       else
-        redirect_to nail_path(@nail), notice: '下書きに登録しました!'
+        redirect_to nail_path(@nail), notice: 'Draft Nailsに保存しました！'
       end
     else
 
@@ -69,6 +74,13 @@ class Public::NailsController < ApplicationController
 
   def nail_params
     params.require(:nail).permit(:image, :title, :body, :tags, :status)
+  end
+  
+  def is_matching_login_user
+    end_user_id = params[:id].to_i
+    unless end_user_id == current_end_user.id
+      redirect_to nails_path
+    end
   end
 
 end

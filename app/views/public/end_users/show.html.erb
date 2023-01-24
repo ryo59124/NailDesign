@@ -36,6 +36,10 @@
           <td>followers</td>
           <td><%= link_to @end_user.followers.count, end_user_followers_path(@end_user) %></td>
         </tr>
+        <tr>
+          <td>favorites</td>
+          <td><%= link_to @end_user.favorites.count, end_user_favorites_path(@end_user) %></td>
+        </tr>
       </table>
       <!--ゲスト・本人以外、フォロー・チャット-->
       <% if current_end_user.name != "Guest" %>
@@ -61,7 +65,7 @@
 
     <!-- ユーザーの投稿一覧 -->
     <div class="col-lg-9">
-      <div class="row text-center ml-2 mr-2">
+      <div class="row text-center ml-2 mr-2 mb-4">
         <% @nails.each do |nail| %>
           <div class='col-lg-4 mt-3 pt-2 pl-2 pr-2 border'>
             <%= link_to nail_path(nail.id) do %>
@@ -70,6 +74,7 @@
             <p><%= nail.title %></p>
           </div>
         <% end %>
+        <%= paginate @nails, theme: 'twitter-bootstrap-4' %>
       </div>
     </div>
 

@@ -29,20 +29,20 @@
       <div>　</div>
       <!--ゲスト、投稿者でなければ、フォロー・チャット-->
       <% if current_end_user.name != "Guest" %>
-      <% if @end_user != current_end_user %>
+      <% if @edit_user != current_end_user %>
       <div>
         
-        <% if current_end_user.following?(@end_user) %>
-          <%= link_to end_user_relationships_path(@end_user.id), method: :delete, class: 'btn border-dark text-reset' do %>
+        <% if current_end_user.following?(@edit_user) %>
+          <%= link_to end_user_relationships_path(@edit_user.id), method: :delete, class: 'btn border-dark text-reset' do %>
             <i class="fas fa-user-minus"></i>
           <% end %>
         <% else %>
-          <%= link_to end_user_relationships_path(@end_user.id), method: :post, class: 'btn border-dark text-success' do %>
+          <%= link_to end_user_relationships_path(@edit_user.id), method: :post, class: 'btn border-dark text-success' do %>
             <i class="fas fa-user-plus"></i>
           <% end %>
         <% end %>
 
-        <%= link_to chat_path(@end_user.id), class: "btn border-dark text-reset" do %>
+        <%= link_to chat_path(@edit_user.id), class: "btn border-dark text-reset" do %>
           <i class="fas fa-comments"></i> CHAT
         <% end %>
         
@@ -65,7 +65,7 @@
     </div>
 
     <!--コメント投稿-->
-    <div class="col-md-4 mt-5 pl-5 pr-5">
+    <div class="col-md-4 mt-5 mb-5 pl-5 pr-5">
       <% @nail.comments.each do |comment| %>
         <p>
           <i class="fas fa-comment-dots"></i> <%= comment.comment %> ( <%= link_to comment.end_user.name, end_user_path(comment.end_user) %>・<%= comment.created_at.strftime('%y/%m/%d') %>)

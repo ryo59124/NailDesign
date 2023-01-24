@@ -1,33 +1,5 @@
 <div class="card-list-container ml-2 mr-2">
   <div class="row">
-    <!--お気に入りtop3-->
-    <div class='col-lg-3 text-center' style="background-color:#ffe4e1;">
-      
-      <div class="pt-3">
-        <h4><i class="far fa-heart"></i> Top3 <i class="far fa-heart"></i></h4>
-      </div>
-      
-      <% @nails_top.each do |nail| %>
-      <div class='card mt-2 ml-4 mr-3 mb-4'>
-        <%= link_to nail_path(nail.id) do %>
-          <%= image_tag nail.get_image, class:"card-img-top center-block", size:"230x230"%>
-        <% end %>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-12 card-title text-center">
-              <div><strong><%= nail.title %></strong></div>
-              <div class="nail_<%= nail.id %>">
-                <%= render "public/favorites/favorites", nail: nail %>
-              </div>
-              <div><i class="fas fa-user-edit"></i> <%= nail.end_user.name %></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <% end %>
-      
-    </div>
-    
     <!--メイン最新投稿-->
     <div class="col-lg-9">
       <!--タグ検索バー-->
@@ -54,7 +26,11 @@
                   <div class="nail_<%= nail.id %>">
                     <%= render "public/favorites/favorites", nail: nail %>
                   </div>
-                  <div><i class="fas fa-user-edit"></i> <%= nail.end_user.name %></div>
+                  <div>
+                    <%= link_to end_user_path(nail.end_user) do %>
+                      <i class="fas fa-user-edit"></i> <%= nail.end_user.name %>
+                    <% end %>
+                  </div>
                 </div>
               </div>
             </div>
@@ -62,6 +38,40 @@
         </div>
         <% end %>
       </div>
+      <div class="col-md-12 pt-5 ml-5">
+        <%= paginate @nails, theme: 'twitter-bootstrap-4' %>
+      </div>
+
+    </div>
+    <!--お気に入りtop3-->
+    <div class='col-lg-3 text-center' style="background-color:#ffe4e1;">
+      
+      <div class="pt-3">
+        <h4><i class="far fa-heart"></i> Top3 <i class="far fa-heart"></i></h4>
+      </div>
+      
+      <% @nails_top.each do |nail| %>
+      <div class='card mt-2 ml-3 mr-3 mb-4'>
+        <%= link_to nail_path(nail.id) do %>
+          <%= image_tag nail.get_image, class:"card-img-top center-block", size:"270x270"%>
+        <% end %>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 card-title text-center">
+              <div><strong><%= nail.title %></strong></div>
+              <div class="nail_<%= nail.id %>">
+                <%= render "public/favorites/favorites", nail: nail %>
+              </div>
+              <div>
+                <%= link_to end_user_path(nail.end_user) do %>
+                  <i class="fas fa-user-edit"></i> <%= nail.end_user.name %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
       
     </div>
     
