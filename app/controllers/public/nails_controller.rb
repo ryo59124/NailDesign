@@ -77,10 +77,9 @@ class Public::NailsController < ApplicationController
   end
   
   def is_matching_login_user
-    end_user_id = params[:id].to_i
-    unless end_user_id == current_end_user.id
-      redirect_to nails_path
-    end
+    @nail = Nail.find(params[:id])
+    @edit_user = @nail.end_user
+    redirect_to(nails_path) unless @edit_user == current_end_user
   end
 
 end
