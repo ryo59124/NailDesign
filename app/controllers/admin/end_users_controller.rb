@@ -7,7 +7,7 @@ class Admin::EndUsersController < ApplicationController
 
   def show
     @end_user = EndUser.find(params[:id])
-    @nails = @end_user.nails
+    @nails = @end_user.nails.published
   end
 
   def edit

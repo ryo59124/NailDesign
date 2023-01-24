@@ -5,6 +5,7 @@
       <% if @range == "User" %>
         <h3>Users search for "<%= @word %>"</h3>
         <table class="table table-hover table-inverse">
+        <% if @end_users.present? %>
           <tbody>
           <% @end_users.each do |end_user| %>
             <tr>
@@ -16,17 +17,24 @@
             </tr>
           <% end %>
           </tbody>
+        <% else %>
+          <div>検索結果はありません</div>
+        <% end %>
         </table>
-      
+
       <% else %>
       <!--検索対象がUserではない時 -->
         <h3>Nails search for "<%= @word %>"</h3>
         <div>
+        <% if @nails.present? %>
           <% @nails.each do |nail| %>
             <%= link_to nail_path(nail.id) do %>
               <%= image_tag nail.get_image, size: "200x200" %>
             <% end %>
           <% end %>
+        <% else %>
+          <div>検索結果はありません</div>
+        <% end %>
         </div>
       <% end %>
     </div>

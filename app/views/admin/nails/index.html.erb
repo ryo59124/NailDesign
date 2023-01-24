@@ -1,30 +1,87 @@
-<div class="card-list-container ml-3 mr-3">
+<div class="card-list-container ml-2 mr-2">
   <div class="row">
-  <% @nails.each do |nail| %>
-  <div class="col-md-3 py-4">
-  <div class="card shadow-lg">
-    <%= link_to admin_nail_path(nail.id) do %>
-      <%= image_tag nail.get_image, class:"card-img-top img-responsive center-block", size:"350x350"%>
-    <% end %>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-12 card-title text-center">
-          <div><strong><%= nail.title %></strong></div>
-          <div>
-            ♥ <%= nail.favorites.count %>
-            <i class="far fa-comment-dots"></i> <%= nail.comments.count %>
-          </div>
-          <div><i class="fas fa-user-edit"></i> <%= nail.end_user.name %></div>
-          <div>
-            <%= link_to admin_nail_path(nail), method: :delete, data: { confirm: '本当に消しますか？'} do %>
-              <i class="fas fa-trash-alt"></i>
-            <% end %>
+    <!--メイン最新投稿-->
+    <div class="col-lg-9">
+      <div class="mt-2 ml-2 text-left">
+        <h4 class="mt-2">New Posts</h4>
+      </div>
+      <!--投稿それぞれ-->
+      <div class="row ml-2 mr-2">
+        <% @nails.each do |nail| %>
+        <div class="col-lg-4">
+          <div class="card shadow-lg mt-2">
+            <div class="card-top">
+              <%= link_to admin_nail_path(nail.id) do %>
+                <%= image_tag nail.get_image, class:"card-img-top center-block", size:"300x300"%>
+              <% end %>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12 card-title text-center">
+                  <div><strong><%= nail.title %></strong></div>
+                  <div>
+                    ♥ <%= nail.favorites.count %>
+                    <i class="far fa-comment-dots"></i> <%= nail.comments.count %>
+                  </div>
+                  <div>
+                    <%= link_to admin_end_user_path(nail.end_user) do %>
+                      <i class="fas fa-user-edit"></i> <%= nail.end_user.name %>
+                    <% end %>
+                  </div>
+                  <div>
+                    <%= link_to admin_nail_path(nail), method: :delete, data: { confirm: '本当に消しますか？'} do %>
+                      <i class="fas fa-trash-alt"></i>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        <% end %>
+      </div>
+      <div class="col-md-12 pt-5 ml-5">
+        <%= paginate @nails, theme: 'twitter-bootstrap-4' %>
+      </div>
+
+    </div>
+    <!--お気に入りtop3-->
+    <div class='col-lg-3 text-center' style="background-color:#ffe4e1;">
+
+      <div class="pt-3">
+        <h4><i class="far fa-heart"></i> Top3 <i class="far fa-heart"></i></h4>
+      </div>
+
+      <% @nails_top.each do |nail| %>
+      <div class='card mt-2 ml-3 mr-3 mb-4'>
+        <%= link_to admin_nail_path(nail.id) do %>
+          <%= image_tag nail.get_image, class:"card-img-top center-block", size:"270x270"%>
+        <% end %>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 card-title text-center">
+              <div><strong><%= nail.title %></strong></div>
+              <div>
+                ♥ <%= nail.favorites.count %>
+                <i class="far fa-comment-dots"></i> <%= nail.comments.count %>
+              </div>
+              <div>
+                <%= link_to admin_end_user_path(nail.end_user) do %>
+                  <i class="fas fa-user-edit"></i> <%= nail.end_user.name %>
+                <% end %>
+              </div>
+              <div>
+                <%= link_to admin_nail_path(nail), method: :delete, data: { confirm: '本当に消しますか？'} do %>
+                  <i class="fas fa-trash-alt"></i>
+                <% end %>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+      <% end %>
+
     </div>
-  </div>
-  <% end %>
+
   </div>
 </div>

@@ -6,7 +6,7 @@ class Public::SearchesController < ApplicationController
     if @range == "User"
       @end_users = EndUser.looks(params[:search], params[:word])
     else
-      @nails = Nail.looks(params[:search], params[:word])
+      @nails = Nail.published.looks(params[:search], params[:word])
     end
   end
 end
