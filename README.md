@@ -27,9 +27,6 @@
 - ネイルデザインを探したい時
 - ネイルチップの依頼をしたい時
 
-## 設計書
-<...>
-
 ## 開発環境
 - OS：Linux(CentOS)
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
@@ -38,4 +35,4 @@
 - IDE：Cloud9
 
 ## 使用素材
-- 使用検討中です
+- イラストAC https://www.ac-illust.com/
