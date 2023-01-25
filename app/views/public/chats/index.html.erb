@@ -8,7 +8,7 @@
         <% if chat_partner.name != "Guest" && chat_partner.name != "guestuser" %>
           <tr>
             <td>
-              <%= link_to "#{chat_partner.name}さん", chat_path(chat_partner.id), class:"text-reset" %>
+              <%= link_to "#{chat_partner.name}さん", chats_path(end_user_id: chat_partner.id), class:"text-reset" %>
             </td>
           </tr>
         <% end %>

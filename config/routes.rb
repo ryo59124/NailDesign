@@ -18,8 +18,7 @@ scope module: :public do
     resources :comments, only: [:create, :destroy]
   end
 
-  get 'chat/:id', to: 'chats#show', as: 'chat'
-  resources :chats, only: [:create]
+  resource :chats, only: [:create, :show]
 
   resources :end_users, only: [:index, :show, :edit, :update] do
     resources :favorites, only: [:index]
@@ -32,7 +31,8 @@ scope module: :public do
     end
   end
   get "/end_users/:id/unsubscribe" => "end_users#unsubscribe", as: "unsuscribe"
-  patch "/end_user/withdraw" => "end_users#withdraw"
+ # patch "/end_user/withdraw" => "end_users#withdraw"
+  patch '/end_users/:id/withdraw' => 'end_users#withdraw', as: 'withdraw'
 
 
 end

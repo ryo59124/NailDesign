@@ -1,9 +1,20 @@
 class Public::NailsController < ApplicationController
+  before_action :authenticate_end_user!
   before_action :is_matching_login_user, only: [:edit, :update, :destroy]
-  
+
   def index
     @nails_top = Nail.published.joins(:favorites).group(:nail_id).order('count(favorites.nail_id) desc').limit(3)
-    @nails = params[:tag_id].present? ? Tag.find(params[:tag_id]).nails : Nail.published.order(created_at: :desc).page(params[:page]).per(6)
+    @nails = if params[:tag_id].present?
+      tag = Tag.find_by(id: params[:tag_id])
+      if tag.nil?
+        Nail.all
+      else
+        tag.nails
+      end
+    else
+      Nail.all
+    end
+    @nails = @nails.joins(:end_user).where(end_user: { is_deleted: false }).published.page(params[:page]).per(6)
   end
 
   def new
@@ -75,7 +86,7 @@ class Public::NailsController < ApplicationController
   def nail_params
     params.require(:nail).permit(:image, :title, :body, :tags, :status)
   end
-  
+
   def is_matching_login_user
     @nail = Nail.find(params[:id])
     @edit_user = @nail.end_user

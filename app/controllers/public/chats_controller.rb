@@ -1,11 +1,12 @@
 class Public::ChatsController < ApplicationController
+  before_action :partner_is_exist, only: [:show]
 
   def index
     @chat_partners = EndUser.where.not(id: current_end_user.id)
   end
 
   def show
-    @end_user = EndUser.find(params[:id])
+    @end_user = EndUser.find(params[:end_user_id])
     rooms = current_end_user.user_rooms.pluck(:room_id)
     user_rooms = UserRoom.find_by(end_user_id: @end_user.id, room_id: rooms)
 
@@ -30,6 +31,13 @@ class Public::ChatsController < ApplicationController
 
   def chat_params
     params.require(:chat).permit(:message, :room_id)
+  end
+
+  def partner_is_exist
+    partner = EndUser.find(params[:end_user_id])
+    if partner.is_deleted
+      redirect_to end_user_chats_path(current_end_user), notice: '相手のユーザーはいません。'
+    end
   end
 
 end
