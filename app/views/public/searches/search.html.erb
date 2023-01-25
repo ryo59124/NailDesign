@@ -8,6 +8,7 @@
         <% if @end_users.present? %>
           <tbody>
           <% @end_users.each do |end_user| %>
+          <% if end_user.name != "Guest" %>
             <tr>
               <td>
                 <%= link_to end_user_path(end_user.id) do %>
@@ -15,6 +16,7 @@
                 <% end %>
               </td>
             </tr>
+          <% end %>
           <% end %>
           </tbody>
         <% else %>

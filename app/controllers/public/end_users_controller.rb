@@ -1,6 +1,7 @@
 class Public::EndUsersController < ApplicationController
   before_action :set_user, only: [:favorites]
   before_action :is_matching_login_user, only: [:edit, :update, :confirm, :withdraw, :unsubscribe]
+  before_action :ensure_guest, only: [:show, :edit, :update, :confirm, :withdraw, :unsubscribe]
   
   def index
     @end_users = EndUser.all
@@ -62,5 +63,12 @@ class Public::EndUsersController < ApplicationController
       redirect_to nails_path
     end
   end
+  
+  def ensure_guest
+    @end_user = EndUser.find(params[:id])
+    if @end_user.name == "Guest"
+      redirect_to nails_path , notice: 'ゲストユーザーはこの画面に遷移できません。'
+    end
+  end  
 
 end
