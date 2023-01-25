@@ -9,6 +9,7 @@
           <tbody>
           <% @end_users.each do |end_user| %>
           <% if end_user.name != "Guest" %>
+          <% if end_user.is_deleted == false %>
             <tr>
               <td>
                 <%= link_to end_user_path(end_user.id) do %>
@@ -16,6 +17,7 @@
                 <% end %>
               </td>
             </tr>
+          <% end %>
           <% end %>
           <% end %>
           </tbody>

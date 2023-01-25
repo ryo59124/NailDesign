@@ -1,5 +1,8 @@
 <div class='container px-5 px-sm-0 mt-4'>
   <div class='row'>
+    <% if @end_user.is_deleted %>
+      ユーザーはいません。
+    <% else %>
     <!--プロフィール-->
     <div class='col-lg-3 text-center shadow mt-4 mb-5' style="background-color:#fffafa;">
       <div class='mt-3'>
@@ -30,11 +33,11 @@
       <table class='table mt-3'>
         <tr>
           <td>follows</td>
-          <td><%= link_to @end_user.followings.count, end_user_followings_path(@end_user) %></td>
+          <td><%= link_to @end_user.followings.where( is_deleted: false ).count, end_user_followings_path(@end_user) %></td>
         </tr>
         <tr>
           <td>followers</td>
-          <td><%= link_to @end_user.followers.count, end_user_followers_path(@end_user) %></td>
+          <td><%= link_to @end_user.followers.where( is_deleted: false ).count, end_user_followers_path(@end_user) %></td>
         </tr>
         <tr>
           <td>favorites</td>
@@ -55,7 +58,7 @@
           <% end %>
         <% end %>
 
-        <%= link_to chat_path(@end_user.id), class: "btn border-dark text-reset" do %>
+        <%= link_to chats_path(end_user_id: @end_user.id), class: "btn border-dark text-reset" do %>
           <i class="fas fa-comments"></i> CHAT
         <% end %>
       </div>
@@ -77,6 +80,6 @@
         <%= paginate @nails, theme: 'twitter-bootstrap-4' %>
       </div>
     </div>
-
+  <% end %>
   </div>
 </div>

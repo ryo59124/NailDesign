@@ -15,7 +15,7 @@ class Public::FavoritesController < ApplicationController
   def index
     @end_user = EndUser.find(params[:end_user_id])
     favorites = Favorite.where(end_user_id: @end_user.id).pluck(:nail_id)
-    @favorite_nails = Nail.find(favorites)
+    @favorite_nails = Nail.order(created_at: :desc).find(favorites)
   end
 
 end

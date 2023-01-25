@@ -2,7 +2,7 @@ class Public::EndUsersController < ApplicationController
   before_action :set_user, only: [:favorites]
   before_action :is_matching_login_user, only: [:edit, :update, :confirm, :withdraw, :unsubscribe]
   before_action :ensure_guest, only: [:show, :edit, :update, :confirm, :withdraw, :unsubscribe]
-  
+
   def index
     @end_users = EndUser.all
   end
@@ -14,7 +14,7 @@ class Public::EndUsersController < ApplicationController
   
   def confirm
     @end_user = EndUser.find(params[:id])
-    @nails = @end_user.nails.draft.order('created_at DESC')
+    @nails = @end_user.nails.draft.order(created_at: :desc)
   end
 
   def edit
@@ -70,5 +70,5 @@ class Public::EndUsersController < ApplicationController
       redirect_to nails_path , notice: 'ゲストユーザーはこの画面に遷移できません。'
     end
   end  
-
+  
 end

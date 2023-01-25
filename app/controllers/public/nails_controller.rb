@@ -3,7 +3,7 @@ class Public::NailsController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update, :destroy]
 
   def index
-    @nails_top = Nail.published.joins(:favorites).group(:nail_id).order('count(favorites.nail_id) desc').limit(3)
+    @nails_top = Nail.joins(:end_user).where(end_user: { is_deleted: false }).published.joins(:favorites).group(:nail_id).order('count(favorites.nail_id) desc').limit(3)
     @nails = if params[:tag_id].present?
       tag = Tag.find_by(id: params[:tag_id])
       if tag.nil?
@@ -14,7 +14,7 @@ class Public::NailsController < ApplicationController
     else
       Nail.all
     end
-    @nails = @nails.joins(:end_user).where(end_user: { is_deleted: false }).published.page(params[:page]).per(6)
+    @nails = @nails.joins(:end_user).where(end_user: { is_deleted: false }).published.order(created_at: :desc).page(params[:page]).per(6)
   end
 
   def new

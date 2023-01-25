@@ -12,12 +12,12 @@ class Public::RelationshipsController < ApplicationController
   # フォロー一覧
   def followings
     end_user = EndUser.find(params[:end_user_id])
-    @end_users = end_user.followings
+    @end_users = end_user.followings.where(is_deleted: false)
   end
   # フォロワー一覧
   def followers
     end_user = EndUser.find(params[:end_user_id])
-    @end_users = end_user.followers
+    @end_users = end_user.followers.where(is_deleted: false)
   end
 
 end

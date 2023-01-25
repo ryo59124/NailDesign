@@ -1,14 +1,14 @@
 <% if current_end_user.name != "Guest" %>
   <% if nail.favorited_by?(current_end_user) %>
     <%= link_to nail_favorites_path(nail), method: :delete, remote: true, style: "color:#fa8070;" do %>
-      ♥<%= nail.favorites.count %>
+      ♥<%= nail.favorites.joins(:end_user).where(end_user: { is_deleted: false }).count %>
     <% end %>
   <% else %>
     <%= link_to nail_favorites_path(nail), method: :post, remote: true, class: "text-reset" do %>
-      ♡<%= nail.favorites.count %>
+      ♡<%= nail.favorites.joins(:end_user).where(end_user: { is_deleted: false }).count %>
     <% end %>
   <% end %>
 <% else %>
-  ♥<%= nail.favorites.count %>
+  ♥<%= nail.favorites.joins(:end_user).where(end_user: { is_deleted: false }).count %>
 <% end %>
-　<i class="far fa-comment-dots"></i> <%= nail.comments.count %>
+　<i class="far fa-comment-dots"></i> <%= nail.comments.joins(:end_user).where(end_user: { is_deleted: false }).count %>

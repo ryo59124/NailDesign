@@ -33,7 +33,7 @@
               <% end %>
               </td>
               <td>
-                <%= link_to chat_path(end_user.id), class: "text-reset" do %>
+                <%= link_to chats_path(end_user_id: end_user.id), class: "text-reset" do %>
                   <i class="fas fa-comments"></i> CHAT
                 <% end %>
               </td>

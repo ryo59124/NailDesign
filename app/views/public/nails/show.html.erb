@@ -7,7 +7,7 @@
 
     <!--投稿情報-->
     <div class="col-md-4 mt-3 pt-2 pl-5 pl-5">
-      
+
       <div>
         <%= image_tag @nail.end_user.get_profile_image, class: "rounded-circle border", size:"70x70" %>
         <strong>　<%= link_to @nail.end_user.name, end_user_path(@nail.end_user) %></strong>
@@ -31,7 +31,7 @@
       <% if current_end_user.name != "Guest" %>
       <% if @edit_user != current_end_user %>
       <div>
-        
+
         <% if current_end_user.following?(@edit_user) %>
           <%= link_to end_user_relationships_path(@edit_user.id), method: :delete, class: 'btn border-dark text-reset' do %>
             <i class="fas fa-user-minus"></i>
@@ -42,10 +42,10 @@
           <% end %>
         <% end %>
 
-        <%= link_to chat_path(@edit_user.id), class: "btn border-dark text-reset" do %>
+        <%= link_to chats_path(end_user_id: @edit_user.id), class: "btn border-dark text-reset" do %>
           <i class="fas fa-comments"></i> CHAT
         <% end %>
-        
+
       </div>
       <% end %>
       <% end %>
@@ -61,12 +61,13 @@
           <% end %>
         <% end %>
       </div>
-      
+
     </div>
 
-    <!--コメント投稿-->
+    <!--コメント一覧-->
     <div class="col-md-4 mt-5 mb-5 pl-5 pr-5">
       <% @nail.comments.each do |comment| %>
+      <% if comment.end_user.is_deleted == false %>
         <p>
           <i class="fas fa-comment-dots"></i> <%= comment.comment %> ( <%= link_to comment.end_user.name, end_user_path(comment.end_user) %>・<%= comment.created_at.strftime('%y/%m/%d') %>)
           <% if comment.end_user == current_end_user %>
@@ -75,6 +76,7 @@
             <% end %>
           <% end %>
         </p>
+      <% end %>
       <% end %>
       <div>　</div>
       <!--ゲスト以外、投稿フォーム-->
@@ -87,6 +89,6 @@
         <% end %>
       </div>
     </div>
-    
+
   </div>
 </div>
