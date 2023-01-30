@@ -15,7 +15,6 @@
         </thead>
         <tbody>
           <% @end_users.each do |end_user| %>
-          <% if end_user.id != 7 %>
           <tr>
             <td><%= end_user.id %></td>
             <td><%= link_to end_user.name, admin_end_user_path(end_user), class: "text-dark font-weight-bold" %></td>
@@ -26,7 +25,6 @@
               <td class="text-muted">退会済み</td>
             <% end %>
           </tr>
-          <% end %>
           <% end %>
         </tbody>
     </table>
