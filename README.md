@@ -28,11 +28,14 @@
 - ネイルチップの依頼をしたい時
 
 ## 開発環境
-- OS：Linux(CentOS)
+- OS：Linux(Amazon Linux release 2)
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
 - フレームワーク：Ruby on Rails
 - JSライブラリ：jQuery
 - IDE：Cloud9
+
+## 統計書
+- ER図　https://drive.google.com/file/d/1Csuvf2ihAdugaI4EelN-KcEL8P1QW5t1/view?usp=sharing
 
 ## 使用素材
 - イラストAC https://www.ac-illust.com/
