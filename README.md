@@ -28,7 +28,7 @@
 - ネイルチップの依頼をしたい時
 
 ## 開発環境
-- OS：Linux(CentOS)
+- OS：Linux(Amazon Linux release 2)
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
 - フレームワーク：Ruby on Rails
 - JSライブラリ：jQuery
